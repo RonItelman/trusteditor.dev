@@ -1,0 +1,5059 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustEditor.dev</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20width%3D%22196%22%20height%3D%22196%22%20viewBox%3D%220%200%20196%20196%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20clip-path%3D%22url(%23clip0_133_2)%22%3E%3Cpath%20d%3D%22M97.9997%20194.131L65.1962%20161.835C33.6317%20130.76%2019.0751%2086.5661%2025.758%2043.1207C26.4204%2038.8147%2028.7598%2034.972%2032.0966%2032.171L98.024%200.88923L165.666%2032.171C167.895%2035.0157%20169.467%2038.3362%20170.048%2041.9033C177.195%2085.7393%20162.663%20130.469%20130.803%20161.835L97.9997%20194.131Z%22%20fill%3D%22%23171717%22%2F%3E%3Cpath%20d%3D%22M99.8981%200L32.0966%2032.171C28.7598%2034.972%2026.4204%2038.8147%2025.758%2043.1207C19.0751%2086.5661%2033.6317%20130.76%2065.1962%20161.835L99.8981%20196M96.1012%200L165.666%2032.171C167.895%2035.0157%20169.467%2038.3362%20170.048%2041.9033C177.195%2085.7393%20162.663%20130.469%20130.803%20161.835L96.1012%20196%22%20stroke%3D%22%23B2ADAD%22%20stroke-width%3D%225.63836%22%2F%3E%3Cellipse%20cx%3D%2297.513%22%20cy%3D%2242.4295%22%20rx%3D%2219.513%22%20ry%3D%2219.451%22%20fill%3D%22%23636363%22%2F%3E%3Cellipse%20cx%3D%2297.513%22%20cy%3D%2290.1737%22%20rx%3D%2219.513%22%20ry%3D%2219.451%22%20fill%3D%22%23636363%22%2F%3E%3Cpath%20d%3D%22M97.5127%20115.965C109.663%20115.965%20119.526%20125.785%20119.526%20137.916C119.526%20150.047%20109.663%20159.867%2097.5127%20159.867C85.3629%20159.867%2075.5001%20150.047%2075.5%20137.916C75.5%20125.785%2085.3629%20115.965%2097.5127%20115.965Z%22%20fill%3D%22%2318E48F%22%20stroke%3D%22%231CBF7B%22%20stroke-width%3D%225%22%2F%3E%3C%2Fg%3E%3Cdefs%3E%3CclipPath%20id%3D%22clip0_133_2%22%3E%3Crect%20width%3D%22196%22%20height%3D%22196%22%20fill%3D%22white%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3C%2Fsvg%3E" />
+    
+    <style>
+/* Global resets and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Import fonts with all weights needed */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Main container layout */
+.container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 80px);
+  padding: 20px;
+  gap: 20px;
+}
+
+#wrapper {
+  width: 100vw;
+  max-width: 100%;
+  
+}
+
+.sponsor-banner {
+  height: 80px;
+  padding: 20px 40px;
+}
+
+.sponsor-banner-text {
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* Left column - Modern glassmorphic editor */
+.left-column {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15),
+  0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  overflow: hidden;
+}
+
+/* Right column - Dark theme state display */
+.right-column {
+  width: calc(50vw - 200px);
+  height: 100%;
+  
+  background: #0d1117;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Editor header */
+.editor-header {
+  padding: 24px 32px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor-title-logo img,
+.editor-title-logo svg {
+  height: 30px;
+  width: auto;
+}
+.editor-title-logo {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.editor-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.editor-toolbar-row {
+  display: flex;
+}
+
+/* Grid controls and info */
+.grid-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.grid-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.grid-toggle:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+}
+
+.grid-toggle label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a5568;
+  user-select: none;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: #e2e8f0;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.toggle-switch.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-switch.active .toggle-slider {
+  transform: translateX(22px);
+}
+
+.grid-info {
+  display: flex;
+  
+  gap: 4px;
+  padding: 6px 12px;
+  background: rgba(103, 126, 234, 0.1);
+  border-radius: 8px;
+  font-size: 11px;
+  color: #667eea;
+  font-weight: 500;
+  font-family: "Roboto Mono", monospace;
+}
+
+/* Editor toolbar */
+.editor-toolbar {
+  padding: 16px 32px;
+  background: rgba(248, 250, 252, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.toolbar-btn {
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.toolbar-btn:hover {
+  background: #f7fafc;
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.toolbar-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.toolbar-separator {
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 0 8px;
+}
+
+/* Font controls */
+.font-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.font-select,
+.size-select {
+  padding: 6px 10px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #4a5568;
+  cursor: pointer;
+  outline: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.font-select:hover,
+.size-select:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.font-select:focus,
+.size-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.font-label {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Search bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-left: 8px;
+  width: calc(50% - 200px);
+}
+
+.search-container:focus-within {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+
+.search-input {
+  border: none;
+  outline: none;
+  padding: 4px;
+  font-size: 14px;
+  font-family: "Roboto Mono", monospace;
+  width: 100%;
+  background: transparent;
+}
+
+.search-count {
+  font-size: 11px;
+  color: #667eea;
+  font-weight: 500;
+  padding: 2px 6px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 4px;
+  min-width: 30px;
+  text-align: center;
+}
+
+/* Excel formula container */
+.excel-formula-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-left: 8px;
+  width: calc(50% - 200px);
+}
+
+.excel-formula-container:focus-within {
+  border-color: #39d353;
+  box-shadow: 0 0 0 3px rgba(57, 211, 83, 0.1);
+}
+
+.excel-formula-input::placeholder, .search-input::placeholder {
+  
+  color: #999;
+  opacity: 0.8;
+}
+
+.excel-formula-input {
+  border: none;
+  outline: none;
+  padding: 4px;
+  font-size: 14px;
+  font-family: "Roboto Mono", monospace;
+  width: 100%;
+  background: transparent;
+}
+
+.excel-formula-button {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #39d353 0%, #2ecc71 100%);
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.excel-formula-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(57, 211, 83, 0.3);
+}
+
+/* Selection info */
+.selection-info {
+  margin-left: auto;
+  padding: 6px 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #667eea;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  display: none;
+}
+
+.selection-info.visible {
+  display: flex;
+}
+
+.editor-toolbar-section-container {
+  margin-right: 20px;
+}
+
+/* Editor wrapper */
+.editor-wrapper {
+  flex: 1;
+  position: relative;
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+/* Editor paper effect */
+.editor-paper {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  right: 32px;
+  bottom: 32px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  overflow: auto;
+}
+
+/* Content area */
+.editor-content {
+  position: relative;
+  padding: 0;
+  min-height: 100%;
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Hidden textarea */
+#hidden-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: #667eea;
+  border: none;
+  outline: none;
+  resize: none;
+  z-index: 2;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden; /* Remove scrollbar */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Text overlay */
+#text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #2d3748;
+  pointer-events: none;
+  z-index: 1;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Canvas grid */
+#grid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#grid-canvas.visible {
+  opacity: 0.75;
+}
+
+/* Character formatting styles */
+.char-normal {
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.char-bold {
+  font-weight: 700;
+}
+
+.char-italic {
+  font-style: italic;
+}
+
+.char-underline {
+  text-decoration: underline;
+}
+
+.char-bold-italic {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.char-bold-underline {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.char-italic-underline {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.char-bold-italic-underline {
+  font-weight: 700;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.char-selected {
+  background: rgba(102, 126, 234, 0.3);
+}
+
+.char-search-match {
+  background: rgba(52, 211, 153, 0.25);
+  border-radius: 2px;
+}
+
+.char-excel-highlight {
+  background: rgba(57, 211, 83, 0.35);
+}
+
+.char-excel-empty {
+  background: rgba(57, 211, 83, 0.15);
+}
+
+/* Tab navigation */
+.tab-header {
+  background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+  border-bottom: 1px solid #30363d;
+  display: flex;
+  padding: 0 16px;
+}
+
+.tab-button {
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Fira Code", monospace;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-button:hover {
+  color: #c9d1d9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-button.active {
+  color: #aae6ff;
+}
+
+.tab-button.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #58a6ff 0%, #39d353 100%);
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+/* Tab content containers */
+.tab-content {
+  flex: 1;
+  display: none;
+  padding: 24px;
+  overflow: auto;
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  background: #0d1117;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Custom scrollbar */
+.tab-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.tab-content::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+/* Config tab specific styles */
+.config-textarea {
+  width: 100%;
+  min-height: 400px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 16px;
+  color: #c9d1d9;
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.6;
+}
+
+.config-textarea:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+}
+
+/* Handlers tab styles */
+.handler-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.handler-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s;
+}
+
+.handler-card:hover {
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.handler-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.handler-name {
+  color: #58a6ff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.handler-status {
+  padding: 4px 8px;
+  background: #21262d;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #39d353;
+}
+
+.handler-status.inactive {
+  color: #8b949e;
+}
+
+.handler-description {
+  color: #8b949e;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.state-section {
+  margin-bottom: 24px;
+}
+
+.state-section h3 {
+  color: #58a6ff;
+  font-size: 13px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #21262d;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.state-section h3::before {
+  content: "▸";
+  color: #39d353;
+}
+
+.state-json {
+  background: #161b22;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  line-height: 1.6;
+  font-size: 12px;
+}
+
+/* Notice */
+.notice {
+  background: linear-gradient(135deg, #39d353 0%, #58a6ff 100%);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  color: #0d1117;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 32px 48px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.loading-spinner.visible {
+  display: flex;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #667eea;
+  font-family: "Inter", sans-serif;
+}
+
+/* Metrics */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.metric {
+  background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #30363d;
+  transition: all 0.3s;
+}
+
+.metric:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-color: #58a6ff;
+}
+
+.metric-label {
+  color: #8b949e;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.metric-value {
+  color: #39d353;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 8px;
+  font-family: "Fira Code", monospace;
+}
+
+/* Syntax Highlighting Styles */
+
+/* JSON Syntax Highlighting */
+.json-key {
+  color: #79c0ff;
+}
+
+.json-string {
+  color: #a5ffd6;
+}
+
+.json-number {
+  color: #ffa657;
+}
+
+.json-boolean {
+  color: #ff7b72;
+}
+
+.json-bracket {
+  color: #d2a8ff;
+  font-weight: bold;
+}
+
+.json-punctuation {
+  color: #8b949e;
+}
+
+/* JavaScript Syntax Highlighting */
+.js-keyword {
+  color: #ff7b72;
+}
+
+.js-string {
+  color: #a5d6ff;
+}
+
+.js-number {
+  color: #ffa657;
+}
+
+.js-comment {
+  color: #8b949e;
+  font-style: italic;
+}
+
+/* CSS Syntax Highlighting */
+.css-selector {
+  color: #79c0ff;
+}
+
+.css-property {
+  color: #7ee787;
+}
+
+.css-value {
+  color: #a5d6ff;
+}
+
+/* Tree tab styles */
+.tree-container {
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  color: #c9d1d9;
+}
+
+.tree-node {
+  margin-left: 16px;
+  padding: 4px 0;
+}
+
+.tree-node-label {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  display: inline-block;
+}
+
+.tree-node-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tree-node-icon {
+  display: inline-block;
+  width: 16px;
+  margin-right: 4px;
+  color: #8b949e;
+}
+
+.tree-node-content {
+  color: #58a6ff;
+}
+
+.tree-node-value {
+  color: #a5d6ff;
+  margin-left: 8px;
+}
+
+.tree-node-children {
+  margin-left: 12px;
+  border-left: 1px solid #21262d;
+  padding-left: 8px;
+}
+
+.tree-node.collapsed > .tree-node-children {
+  display: none;
+}
+
+.tree-node.expanded > .tree-node-children {
+  display: block;
+}
+
+.tree-root {
+  margin: 0;
+}
+
+.tree-empty {
+  color: #8b949e;
+  font-style: italic;
+  padding: 12px;
+  text-align: center;
+}
+
+/* EXT (Extensions) tab styles */
+.ext-container {
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  color: #c9d1d9;
+}
+
+.ext-section {
+  margin-bottom: 24px;
+}
+
+.ext-section-title {
+  color: #58a6ff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #21262d;
+}
+
+.ext-item {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.ext-item:hover {
+  border-color: #58a6ff;
+  transform: translateX(4px);
+}
+
+.ext-item-name {
+  color: #58a6ff;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.ext-item-description {
+  color: #8b949e;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ext-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.ext-badge.active {
+  background: rgba(57, 211, 83, 0.2);
+  color: #39d353;
+}
+
+.ext-badge.inactive {
+  background: rgba(139, 148, 158, 0.2);
+  color: #8b949e;
+}
+
+.ext-empty {
+  color: #8b949e;
+  font-style: italic;
+  text-align: center;
+  padding: 24px;
+}
+
+.react-build-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px;
+}
+
+.react-build-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.react-build-icon {
+  font-size: 32px;
+}
+
+.react-build-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #58a6ff;
+}
+
+.react-build-description {
+  color: #c9d1d9;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.react-build-features {
+  margin-bottom: 24px;
+}
+
+.feature-item {
+  color: #8b949e;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 1px solid #21262d;
+}
+
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+.ext-export-button {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #58a6ff 0%, #79c0ff 100%);
+  color: #0d1117;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.3);
+  text-decoration: none;
+  text-align: center;
+}
+
+.ext-export-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(88, 166, 255, 0.4);
+}
+
+.ext-export-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(88, 166, 255, 0.3);
+}
+
+.react-build-footer {
+  text-align: center;
+  color: #8b949e;
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+/* CHART tab styles - ASCII Line Chart */
+.chart-input-section {
+  padding: 16px;
+  background: #161b22;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.chart-input-title {
+  color: #58a6ff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: "Fira Code", monospace;
+}
+
+.chart-json-input {
+  width: 100%;
+  height: 200px;
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  padding: 12px;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #c9d1d9;
+  resize: vertical;
+  outline: none;
+  line-height: 1.5;
+}
+
+.chart-json-input:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+}
+
+.chart-button-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.chart-button {
+  flex: 1;
+  padding: 10px 20px;
+  background: #444;
+  color: white;
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chart-button:hover {
+  background: #555;
+  transform: translateY(-1px);
+}
+
+.chart-button:active {
+  transform: translateY(0);
+  background: #333;
+}
+
+.chart-output {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.chart-ascii {
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #2d3748;
+  margin: 0;
+  white-space: pre;
+}
+
+.chart-error {
+  color: #dc2626;
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  padding: 12px;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+/* STATS tab styles */
+.stats-container {
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  color: #c9d1d9;
+}
+
+.stats-section {
+  margin-bottom: 24px;
+}
+
+.stats-title {
+  color: #58a6ff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #21262d;
+}
+
+.stats-bar-container {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.stats-bar-label {
+  width: 120px;
+  color: #8b949e;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.stats-bar-track {
+  flex: 1;
+  height: 24px;
+  background: #21262d;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 12px;
+}
+
+.stats-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #58a6ff 0%, #39d353 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stats-bar-value {
+  width: 60px;
+  text-align: right;
+  color: #58a6ff;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stats-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  background: #161b22;
+  border-radius: 8px;
+}
+
+.stats-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #8b949e;
+}
+
+.stats-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.stats-empty {
+  color: #8b949e;
+  font-style: italic;
+  text-align: center;
+  padding: 24px;
+}
+
+.stats-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.stats-stat {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.stats-stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #39d353;
+  margin-bottom: 4px;
+}
+
+.stats-stat-label {
+  font-size: 11px;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* API Panel Styles */
+
+.api-docs-container {
+  font-family: "Fira Code", monospace;
+  color: #c9d1d9;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.api-header {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #30363d;
+}
+
+.api-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #58a6ff;
+  margin: 0 0 12px 0;
+}
+
+.api-description {
+  color: #8b949e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.api-description code {
+  background: #161b22;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #79c0ff;
+  font-size: 13px;
+}
+
+.api-filter-container {
+  margin-top: 16px;
+}
+
+.api-filter-input {
+  width: 100%;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #c9d1d9;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.api-filter-input:focus {
+  border-color: #58a6ff;
+}
+
+.api-filter-input::placeholder {
+  color: #8b949e;
+}
+
+.api-method {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+}
+
+.api-method:hover {
+  border-color: #58a6ff;
+}
+
+.api-method-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 0;
+  padding-bottom: 12px;
+}
+
+.api-method-header:hover .api-method-signature {
+  background: #21262d;
+}
+
+.api-method-toggle {
+  color: #58a6ff;
+  font-size: 14px;
+  margin-left: 12px;
+  transition: transform 0.2s;
+}
+
+.api-method-signature {
+  font-size: 16px;
+  font-weight: 600;
+  color: #79c0ff;
+  background: #0d1117;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  transition: background 0.2s;
+}
+
+.api-method-content {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 1;
+  padding-top: 12px;
+}
+
+.api-method.collapsed .api-method-content {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+}
+
+.api-method.collapsed .api-method-header {
+  padding-bottom: 0;
+}
+
+.api-method-description {
+  color: #c9d1d9;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.api-section {
+  margin-top: 16px;
+}
+
+.api-section h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #58a6ff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+.api-params {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.api-param {
+  background: #0d1117;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border-left: 3px solid #58a6ff;
+}
+
+.api-param-name {
+  color: #a5d6ff;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.api-param-type {
+  color: #ffa657;
+  font-style: italic;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+.api-param-type::before {
+  content: '(';
+}
+
+.api-param-type::after {
+  content: ')';
+}
+
+.api-param-description {
+  color: #8b949e;
+  font-size: 13px;
+}
+
+.api-returns {
+  background: #0d1117;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border-left: 3px solid #39d353;
+}
+
+.api-returns-type {
+  color: #ffa657;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.api-returns-description {
+  color: #8b949e;
+  font-size: 13px;
+}
+
+.api-throws {
+  background: #0d1117;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border-left: 3px solid #ff7b72;
+  color: #8b949e;
+  font-size: 13px;
+}
+
+.api-example {
+  margin-bottom: 16px;
+}
+
+.api-example:last-child {
+  margin-bottom: 0;
+}
+
+.api-example-description {
+  color: #8b949e;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.api-example-code {
+  background: #0d1117;
+  border: 1px solid #21262d;
+  border-radius: 6px;
+  padding: 12px;
+  overflow-x: auto;
+  margin: 0;
+}
+
+.api-example-code code {
+  color: #c9d1d9;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: "Fira Code", monospace;
+}
+
+.api-placeholder {
+  color: #8b949e;
+  font-style: italic;
+  text-align: center;
+  padding: 24px;
+}
+
+  </style>
+</head>
+  <body>
+    <div id="wrapper">
+      <div class="sponsor-banner">
+        <div class="editor-title">
+          <div class="editor-title-logo">
+            <svg width="196" height="196" viewBox="0 0 196 196" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_133_2)">
+                <path d="M97.9997 194.131L65.1962 161.835C33.6317 130.76 19.0751 86.5661 25.758 43.1207C26.4204 38.8147 28.7598 34.972 32.0966 32.171L98.024 0.88923L165.666 32.171C167.895 35.0157 169.467 38.3362 170.048 41.9033C177.195 85.7393 162.663 130.469 130.803 161.835L97.9997 194.131Z" fill="#171717"/>
+                <path d="M99.8981 0L32.0966 32.171C28.7598 34.972 26.4204 38.8147 25.758 43.1207C19.0751 86.5661 33.6317 130.76 65.1962 161.835L99.8981 196M96.1012 0L165.666 32.171C167.895 35.0157 169.467 38.3362 170.048 41.9033C177.195 85.7393 162.663 130.469 130.803 161.835L96.1012 196" stroke="#B2ADAD" stroke-width="5.63836"/>
+                <ellipse cx="97.513" cy="42.4295" rx="19.513" ry="19.451" fill="#636363"/>
+                <ellipse cx="97.513" cy="90.1737" rx="19.513" ry="19.451" fill="#636363"/>
+                <path d="M97.5127 115.965C109.663 115.965 119.526 125.785 119.526 137.916C119.526 150.047 109.663 159.867 97.5127 159.867C85.3629 159.867 75.5001 150.047 75.5 137.916C75.5 125.785 85.3629 115.965 97.5127 115.965Z" fill="#18E48F" stroke="#1CBF7B" stroke-width="5"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_133_2">
+                  <rect width="196" height="196" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div class="'editor-title-text">TrustEditor.dev</div>
+        </div>
+        <div class="sponsor-banner-text">
+          For sponsorships, please contact ron@ronitelman.com
+        </div>
+      </div>
+      <div class="container">
+        <!-- Left Column: Modern Editor -->
+        <div class="left-column">
+          <div class="editor-toolbar">
+            <div class="editor-toolbar-row" data-row="1">
+              <div class="editor-font-styles editor-toolbar-section-container">
+                <button class="toolbar-btn" data-command="bold">
+                  <b>B</b>
+                </button>
+                <button class="toolbar-btn" data-command="italic">
+                  <i>I</i>
+                </button>
+                <button class="toolbar-btn" data-command="underline">
+                  <u>U</u>
+                </button>
+              </div>
+              <div
+                class="font-controls-container editor-toolbar-section-container"
+                style="display: none"
+              >
+                <div class="font-controls">
+                  <label class="font-label">Font:</label>
+                  <select class="font-select" id="fontSelect">
+                    <option value="Roboto Mono">Roboto Mono</option>
+                    <option value="Fira Code">Fira Code</option>
+                    <option value="JetBrains Mono">JetBrains Mono</option>
+                    <option value="Source Code Pro">Source Code Pro</option>
+                    <option value="IBM Plex Mono">IBM Plex Mono</option>
+                    <option value="monospace">System Mono</option>
+                  </select>
+                  <label class="font-label">Size:</label>
+                  <select class="size-select" id="sizeSelect">
+                    <option value="12">12px</option>
+                    <option value="14">14px</option>
+                    <option value="16" selected>16px</option>
+                    <option value="18">18px</option>
+                    <option value="20">20px</option>
+                    <option value="24">24px</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                class="font-controls-container editor-toolbar-section-container"
+              >
+                <button class="toolbar-btn" data-command="insert-table">
+                  TABLE
+                </button>
+
+                <button class="toolbar-btn" data-command="insert-bar-chart">
+                  BAR CHART
+                </button>
+              </div>
+              <div style="display: none">
+                <button class="toolbar-btn" data-command="clear">Clear</button>
+                <button class="toolbar-btn" data-command="select-all">
+                  Select All
+                </button>
+              </div>
+              <div class="grid-controls">
+                <div class="grid-info">
+                  <span id="charWidthDisplay">W: calculating...</span>
+                  <span id="lineHeightDisplay">H: 24px</span>
+                </div>
+                <div class="grid-toggle">
+                  <label>Grid View</label>
+                  <div class="toggle-switch" id="gridToggle">
+                    <div class="toggle-slider"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="editor-toolbar-row" data-row="2">
+              <div class="search-container">
+                <input
+                  type="text"
+                  class="search-input"
+                  id="searchInput"
+                  placeholder="Search..."
+                />
+                <span class="search-count" id="searchCount">0</span>
+              </div>
+              <div class="excel-formula-container">
+                <input
+                  type="text"
+                  class="excel-formula-input"
+                  id="excel-formula-input"
+                  placeholder="=SELECT(A1:B10)"
+                />
+                <button class="excel-formula-button" id="excel-formula-button">
+                  Apply
+                </button>
+              </div>
+              <span class="selection-info" id="selectionInfo"
+                >0 chars selected</span
+              >
+            </div>
+          </div>
+
+          <div class="editor-wrapper">
+            <div class="editor-paper">
+              <div class="editor-content">
+                <textarea
+                  id="hidden-input"
+                  placeholder="Start typing..."
+                ></textarea>
+                <div id="text-overlay"></div>
+                <canvas id="grid-canvas"></canvas>
+                <div id="loading-spinner" class="loading-spinner">
+                  <div class="spinner"></div>
+                  <div class="spinner-text">Loading font...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Dark State Display -->
+        <div class="right-column">
+          <!-- Tab Navigation -->
+          <div class="tab-header">
+            <button class="tab-button active" data-tab="state">
+              <span>STATE</span>
+            </button>
+            <button class="tab-button" data-tab="config">
+              <span>CONFIG</span>
+            </button>
+            <button class="tab-button" data-tab="handlers">
+              <span>HANDLERS</span>
+            </button>
+            <button class="tab-button" data-tab="grid">
+              <span>GRID</span>
+            </button>
+            <button class="tab-button" data-tab="tree">
+              <span>TREE</span>
+            </button>
+            <button class="tab-button" data-tab="ext">
+              <span>EXT</span>
+            </button>
+            <button class="tab-button" data-tab="chart">
+              <span>CHART</span>
+            </button>
+            <button class="tab-button" data-tab="stats">
+              <span>STATS</span>
+            </button>
+            <button class="tab-button" data-tab="api">
+              <span>API</span>
+            </button>
+            <button class="tab-button" data-tab="license">
+              <span>LICENSE</span>
+            </button>
+          </div>
+
+          <!-- STATE MONITOR Tab -->
+          <div class="tab-content active" id="stateTab">
+            <!-- Notice -->
+
+            <!-- Metrics -->
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric-label">Characters</div>
+                <div class="metric-value" id="charCount">0</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Words</div>
+                <div class="metric-value" id="wordCount">0</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Lines</div>
+                <div class="metric-value" id="lineCount">1</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Cursor</div>
+                <div class="metric-value" id="cursorPos">0:0</div>
+              </div>
+            </div>
+
+            <!-- Formatting State -->
+            <div class="state-section">
+              <h3>Character Formatting</h3>
+              <div class="state-json" id="formattingState">{}</div>
+            </div>
+
+            <!-- Selection State -->
+            <div class="state-section">
+              <h3>Selection</h3>
+              <div class="state-json" id="selectionState">{}</div>
+            </div>
+
+            <!-- Cursor State -->
+            <div class="state-section">
+              <h3>Cursor Position</h3>
+              <div class="state-json" id="cursorState">{}</div>
+            </div>
+
+            <!-- Grid State -->
+            <div class="state-section">
+              <h3>Grid Alignment</h3>
+              <div class="state-json" id="gridState">{}</div>
+            </div>
+          </div>
+
+          <!-- CONFIG Tab -->
+          <div class="tab-content" id="configTab">
+            <div class="state-section">
+              <h3>Configuration</h3>
+              <textarea
+                class="config-textarea"
+                id="configInput"
+                placeholder="Paste your JSON configuration here..."
+                spellcheck="false"
+              >
+{
+  "description": "placeholder"
+}</textarea
+              >
+            </div>
+          </div>
+
+          <!-- HANDLERS Tab -->
+          <div class="tab-content" id="handlersTab">
+            <div class="handler-list">
+              <div class="handler-card">
+                <div class="handler-header">
+                  <span class="handler-name">show-warning command handler</span>
+                  <span class="handler-status">...</span>
+                </div>
+                <div class="handler-description">...</div>
+              </div>
+              <div class="handler-card">
+                <div class="handler-header">
+                  <span class="handler-name"
+                    >show-forbidden command handler</span
+                  >
+                  <span class="handler-status">...</span>
+                </div>
+                <div class="handler-description">...</div>
+              </div>
+              <div class="handler-card">
+                <div class="handler-header">
+                  <span class="handler-name"
+                    >selection-made command handler</span
+                  >
+                  <span class="handler-status">...</span>
+                </div>
+                <div class="handler-description">...</div>
+              </div>
+              <div class="handler-card">
+                <div class="handler-header">
+                  <span class="handler-name"
+                    >user-select-oneOf command handler</span
+                  >
+                  <span class="handler-status">...</span>
+                </div>
+                <div class="handler-description">...</div>
+              </div>
+              <div class="handler-card">
+                <div class="handler-header">
+                  <span class="handler-name"
+                    >user-select-oneOf-and-Warn command handler</span
+                  >
+                  <span class="handler-status">...</span>
+                </div>
+                <div class="handler-description">...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GRID Tab -->
+          <div class="tab-content" id="gridTab">
+            <div class="state-section">
+              <h3>Word Grid Positions</h3>
+              <div class="state-json" id="gridWordPositions">{}</div>
+            </div>
+          </div>
+
+          <!-- TREE Tab -->
+          <div class="tab-content" id="treeTab">
+            <div class="tree-container tree-root" id="treeContent">
+              <div class="tree-empty">Loading tree view...</div>
+            </div>
+          </div>
+
+          <!-- EXT Tab -->
+          <div class="tab-content" id="extTab">
+            <div class="ext-container" id="extContent">
+              <div class="react-build-card">
+                <div class="react-build-header">
+                  <div class="react-build-icon">⚛️</div>
+                  <div class="react-build-title">React Build</div>
+                </div>
+                <div class="react-build-description">
+                  A React-compatible version of TrustEditor with the same features and functionality, ready to integrate into your React applications.
+                </div>
+                <div class="react-build-features">
+                  <div class="feature-item">✓ Same grid-based editor</div>
+                  <div class="feature-item">✓ Character-level formatting</div>
+                  <div class="feature-item">✓ Excel-style cell selection</div>
+                  <div class="feature-item">✓ React hooks & components</div>
+                </div>
+                <a
+                  href="https://github.com/yourusername/trusteditor-react"
+                  target="_blank"
+                  class="ext-export-button"
+                  id="reactExportButton"
+                >
+                  VIEW REACT BUILD →
+                </a>
+                <div class="react-build-footer">
+                  Click to view the GitHub repository
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHART Tab -->
+          <div class="tab-content" id="chartTab">
+            <div class="chart-container" id="chartContent">
+              <div class="chart-empty">Loading charts...</div>
+            </div>
+          </div>
+
+          <!-- STATS Tab -->
+          <div class="tab-content" id="statsTab">
+            <div class="stats-container" id="statsContent">
+              <div class="stats-empty">Loading stats...</div>
+            </div>
+          </div>
+
+          <!-- API Tab -->
+          <div class="tab-content" id="apiTab">
+            <div class="api-container" id="apiContent">
+              <div class="api-placeholder">API...</div>
+            </div>
+          </div>
+
+          <!-- LICENSE Tab -->
+          <div class="tab-content" id="licenseTab">
+            <div class="state-section">
+              <h3>TrustLoop Protocol License</h3>
+              <div class="state-json"></div>
+              <div class="license-notice" style="margin-top: 1rem; padding: 1rem; border-top: 1px solid #333; color: #888; font-size: 0.9em;">
+                No restrictions on commercial or personal use. This watermark shows compliance with the TrustLoop Protocol.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </div>
+    <script>
+/**
+ * SyntaxHighlighter - A utility class for applying syntax highlighting to JSON and other code formats
+ */
+class SyntaxHighlighter {
+  /**
+   * Apply JSON syntax highlighting to a JSON string
+   * @param {string} json - The JSON string to highlight
+   * @returns {string} HTML string with syntax highlighting classes
+   */
+  static highlightJson(json) {
+    return json
+      .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
+      .replace(/: "([^"]+)"/g, ': <span class="json-string">"$1"</span>')
+      .replace(/: (\d+\.?\d*)/g, ': <span class="json-number">$1</span>')
+      .replace(/: (true|false)/g, ': <span class="json-boolean">$1</span>')
+      .replace(/([{}\[\]])/g, '<span class="json-bracket">$1</span>')
+      .replace(/,/g, '<span class="json-punctuation">,</span>');
+  }
+
+  /**
+   * Apply JavaScript syntax highlighting to a JavaScript string
+   * @param {string} code - The JavaScript code to highlight
+   * @returns {string} HTML string with syntax highlighting classes
+   */
+  static highlightJavaScript(code) {
+    return code
+      .replace(/\b(const|let|var|function|return|if|else|for|while|class|new|this|import|export|default|async|await)\b/g, '<span class="js-keyword">$1</span>')
+      .replace(/\b(\d+\.?\d*)\b/g, '<span class="js-number">$1</span>')
+      .replace(/(['"`])(.*?)\1/g, '<span class="js-string">$1$2$1</span>')
+      .replace(/\/\/(.*?)$/gm, '<span class="js-comment">//$1</span>')
+      .replace(/\/\*([\s\S]*?)\*\//g, '<span class="js-comment">/*$1*/</span>');
+  }
+
+  /**
+   * Apply generic code syntax highlighting
+   * @param {string} code - The code to highlight
+   * @param {string} language - The language type ('json', 'javascript', 'css', etc.)
+   * @returns {string} HTML string with syntax highlighting classes
+   */
+  static highlight(code, language = 'json') {
+    switch (language.toLowerCase()) {
+      case 'json':
+        return this.highlightJson(code);
+      case 'javascript':
+      case 'js':
+        return this.highlightJavaScript(code);
+      default:
+        return code;
+    }
+  }
+}
+
+/**
+ * TrustEditor Public API
+ * @class TrustEditorAPI
+ * @description Public API for programmatically controlling the TrustEditor instance
+ */
+class TrustEditorAPI {
+  /**
+   * Create a new TrustEditor API instance
+   * @param {Object} editor - The TrustEditor instance
+   */
+  constructor(editor) {
+    this.editor = editor;
+    this.gridExcelSelector = editor.gridExcelSelector;
+  }
+
+  /**
+   * Programmatically select a range of cells using Excel-style notation
+   * @public
+   * @param {string} startCell - Starting cell in Excel notation (e.g., "A1", "B5", "AA10")
+   * @param {string} endCell - Ending cell in Excel notation (e.g., "B10", "C20", "AB15")
+   * @returns {Object} Selection result with metadata
+   * @throws {Error} If cell references are invalid
+   *
+   * @example
+   * // Select a single row from A1 to Z1
+   * api.select("A1", "Z1");
+   *
+   * @example
+   * // Select a rectangular region from A1 to C10
+   * api.select("A1", "C10");
+   *
+   * @example
+   * // Select a single cell
+   * api.select("B5", "B5");
+   */
+  select(startCell, endCell) {
+    if (!this.gridExcelSelector) {
+      throw new Error("Grid Excel Selector not initialized");
+    }
+
+    // Validate input
+    if (typeof startCell !== 'string' || typeof endCell !== 'string') {
+      throw new Error("Cell references must be strings");
+    }
+
+    startCell = startCell.toUpperCase().trim();
+    endCell = endCell.toUpperCase().trim();
+
+    // Parse cell references
+    const start = this._parseCellReference(startCell);
+    const end = this._parseCellReference(endCell);
+
+    if (!start) {
+      throw new Error(`Invalid start cell reference: ${startCell}`);
+    }
+
+    if (!end) {
+      throw new Error(`Invalid end cell reference: ${endCell}`);
+    }
+
+    // Clear previous selection
+    this.gridExcelSelector.clearHighlights();
+
+    // Make the selection
+    this.gridExcelSelector.highlightRange(start, end);
+
+    // Calculate selection metadata
+    const metadata = this._getSelectionMetadata(start, end);
+
+    return {
+      success: true,
+      start: startCell,
+      end: endCell,
+      ...metadata
+    };
+  }
+
+  /**
+   * Clear the current cell selection
+   * @public
+   * @returns {Object} Result object
+   *
+   * @example
+   * api.clearSelection();
+   */
+  clearSelection() {
+    if (!this.gridExcelSelector) {
+      throw new Error("Grid Excel Selector not initialized");
+    }
+
+    this.gridExcelSelector.clearHighlights();
+    this.editor.renderOverlay();
+
+    return {
+      success: true,
+      message: "Selection cleared"
+    };
+  }
+
+  /**
+   * Get information about the current selection
+   * @public
+   * @returns {Object} Selection information
+   *
+   * @example
+   * const info = api.getSelectionInfo();
+   * console.log(info.cellCount); // Number of cells selected
+   */
+  getSelectionInfo() {
+    if (!this.gridExcelSelector) {
+      throw new Error("Grid Excel Selector not initialized");
+    }
+
+    const positions = this.gridExcelSelector.getHighlightedPositions();
+
+    if (positions.size === 0) {
+      return {
+        hasSelection: false,
+        cellCount: 0
+      };
+    }
+
+    const bounds = this._getSelectionBounds(positions);
+
+    return {
+      hasSelection: true,
+      cellCount: positions.size,
+      bounds: {
+        start: this._coordsToExcel(bounds.minRow, bounds.minCol),
+        end: this._coordsToExcel(bounds.maxRow, bounds.maxCol)
+      },
+      rows: bounds.maxRow - bounds.minRow + 1,
+      cols: bounds.maxCol - bounds.minCol + 1
+    };
+  }
+
+  /**
+   * Search for text in the editor with advanced options
+   * @public
+   * @param {string} searchTerm - The text to search for
+   * @param {Object} options - Search options
+   * @param {boolean} options.caseSensitive - Whether to match case (default: false)
+   * @param {boolean} options.wholeWord - Whether to match whole words only (default: false)
+   * @returns {Object} Search results with match count and positions
+   *
+   * @example
+   * // Basic search (case-insensitive, substring matching)
+   * const results = TrustEditor.search("hello");
+   * console.log(results.matchCount); // Number of matches found
+   *
+   * @example
+   * // Case-sensitive search
+   * TrustEditor.search("TrustEditor", { caseSensitive: true });
+   *
+   * @example
+   * // Whole word search
+   * TrustEditor.search("edit", { wholeWord: true });
+   */
+  search(searchTerm, options = {}) {
+    if (typeof searchTerm !== 'string') {
+      throw new Error("Search term must be a string");
+    }
+
+    // Update the search input and trigger search
+    this.editor.searchTerm = searchTerm;
+    this.editor.searchInput.value = searchTerm;
+    this.editor.performSearch(options);
+
+    return {
+      success: true,
+      searchTerm: searchTerm,
+      options: this.editor.searchOptions,
+      matchCount: this.editor.searchMatches.length,
+      matches: this.editor.searchMatches.map(match => ({
+        start: match.start,
+        end: match.end,
+        text: this.editor.state.text.substring(match.start, match.end)
+      }))
+    };
+  }
+
+  /**
+   * Navigate to the next search match
+   * @public
+   * @returns {Object} Result with current match information
+   *
+   * @example
+   * TrustEditor.search("hello");
+   * TrustEditor.navigateToNextMatch(); // Jump to first match
+   * TrustEditor.navigateToNextMatch(); // Jump to second match
+   */
+  navigateToNextMatch() {
+    if (this.editor.searchMatches.length === 0) {
+      return {
+        success: false,
+        message: "No search matches found"
+      };
+    }
+
+    this.editor.navigateToNextMatch();
+
+    return {
+      success: true,
+      currentMatch: this.editor.currentMatchIndex + 1,
+      totalMatches: this.editor.searchMatches.length,
+      match: this.editor.searchMatches[this.editor.currentMatchIndex]
+    };
+  }
+
+  /**
+   * Navigate to the previous search match
+   * @public
+   * @returns {Object} Result with current match information
+   *
+   * @example
+   * TrustEditor.search("hello");
+   * TrustEditor.navigateToPreviousMatch(); // Jump to last match
+   */
+  navigateToPreviousMatch() {
+    if (this.editor.searchMatches.length === 0) {
+      return {
+        success: false,
+        message: "No search matches found"
+      };
+    }
+
+    this.editor.navigateToPreviousMatch();
+
+    return {
+      success: true,
+      currentMatch: this.editor.currentMatchIndex + 1,
+      totalMatches: this.editor.searchMatches.length,
+      match: this.editor.searchMatches[this.editor.currentMatchIndex]
+    };
+  }
+
+  /**
+   * Clear the current search
+   * @public
+   * @returns {Object} Result object
+   *
+   * @example
+   * TrustEditor.clearSearch();
+   */
+  clearSearch() {
+    this.editor.searchTerm = "";
+    this.editor.searchInput.value = "";
+    this.editor.performSearch();
+
+    return {
+      success: true,
+      message: "Search cleared"
+    };
+  }
+
+  /**
+   * Get information about the current search results
+   * @public
+   * @returns {Object} Search information including match count and positions
+   *
+   * @example
+   * const info = TrustEditor.getSearchInfo();
+   * console.log(info.matchCount); // Number of matches
+   * console.log(info.matches); // Array of match positions
+   */
+  getSearchInfo() {
+    const hasSearch = this.editor.searchTerm && this.editor.searchTerm.length > 0;
+
+    if (!hasSearch) {
+      return {
+        hasSearch: false,
+        searchTerm: "",
+        matchCount: 0,
+        matches: []
+      };
+    }
+
+    return {
+      hasSearch: true,
+      searchTerm: this.editor.searchTerm,
+      matchCount: this.editor.searchMatches.length,
+      matches: this.editor.searchMatches.map(match => ({
+        start: match.start,
+        end: match.end,
+        text: this.editor.state.text.substring(match.start, match.end)
+      }))
+    };
+  }
+
+  /**
+   * Highlight grid cells by range with custom background color
+   * @public
+   * @param {Object} options - Highlight options
+   * @param {string} options.start - Starting cell in Excel notation (e.g., "A1", "B5")
+   * @param {string} options.end - Ending cell in Excel notation (e.g., "B10", "C20")
+   * @param {string} options.color - CSS color value (e.g., "rgba(255, 0, 0, 0.3)", "#ff0000", "red")
+   * @returns {Object} Result object with success status
+   * @throws {Error} If cell references are invalid or color is not provided
+   *
+   * @example
+   * // Highlight cells A1 to C5 with red background
+   * TrustEditor.highlightByGridCells({
+   *   start: "A1",
+   *   end: "C5",
+   *   color: "rgba(255, 0, 0, 0.3)"
+   * });
+   *
+   * @example
+   * // Highlight a single row with blue background
+   * TrustEditor.highlightByGridCells({
+   *   start: "A10",
+   *   end: "Z10",
+   *   color: "#0000ff80"
+   * });
+   */
+  highlightByGridCells({ start, end, color }) {
+    if (!this.gridExcelSelector) {
+      throw new Error("Grid Excel Selector not initialized");
+    }
+
+    // Validate input
+    if (typeof start !== 'string' || typeof end !== 'string') {
+      throw new Error("Cell references must be strings");
+    }
+
+    if (!color || typeof color !== 'string') {
+      throw new Error("Color must be provided as a string");
+    }
+
+    start = start.toUpperCase().trim();
+    end = end.toUpperCase().trim();
+
+    // Parse cell references
+    const startCoords = this._parseCellReference(start);
+    const endCoords = this._parseCellReference(end);
+
+    if (!startCoords) {
+      throw new Error(`Invalid start cell reference: ${start}`);
+    }
+
+    if (!endCoords) {
+      throw new Error(`Invalid end cell reference: ${end}`);
+    }
+
+    // Highlight the range with custom color
+    this.gridExcelSelector.highlightRangeWithColor(startCoords, endCoords, color);
+
+    // Calculate selection metadata
+    const metadata = this._getSelectionMetadata(startCoords, endCoords);
+
+    return {
+      success: true,
+      start: start,
+      end: end,
+      color: color,
+      ...metadata
+    };
+  }
+
+  /**
+   * Move cursor to a specific grid position
+   * @public
+   * @param {Object} options - Position options
+   * @param {string} options.col - Column in Excel notation (e.g., "A", "B", "AA")
+   * @param {number} options.row - Row number (1-based, e.g., 1, 10, 100)
+   * @returns {Object} Result object with position information
+   * @throws {Error} If position is invalid or out of bounds
+   *
+   * @example
+   * // Move cursor to column A, row 10
+   * TrustEditor.moveCursorToPositionByGrid({ col: "A", row: 10 });
+   *
+   * @example
+   * // Move cursor to column AA, row 1
+   * TrustEditor.moveCursorToPositionByGrid({ col: "AA", row: 1 });
+   */
+  moveCursorToPositionByGrid({ col, row }) {
+    // Validate input
+    if (typeof col !== 'string') {
+      throw new Error("Column must be a string (e.g., 'A', 'B', 'AA')");
+    }
+
+    if (typeof row !== 'number' || row < 1) {
+      throw new Error("Row must be a positive number (1-based)");
+    }
+
+    try {
+      const result = this.editor.moveCursorToPositionByGrid({ col, row });
+      return {
+        success: true,
+        col: col,
+        row: row,
+        ...result
+      };
+    } catch (error) {
+      throw new Error(`Failed to move cursor: ${error.message}`);
+    }
+  }
+
+  /**
+   * Parse a cell reference like "A10" into coordinates
+   * @private
+   * @param {string} cellRef - Cell reference in Excel notation
+   * @returns {Object|null} Coordinates {col, row} or null if invalid
+   */
+  _parseCellReference(cellRef) {
+    const match = cellRef.match(/^([A-Z]+)(\d+)$/);
+    if (!match) return null;
+
+    const colStr = match[1];
+    const rowStr = match[2];
+
+    // Convert column letter(s) to number (A=0, B=1, ... Z=25, AA=26, etc.)
+    let col = 0;
+    for (let i = 0; i < colStr.length; i++) {
+      col = col * 26 + (colStr.charCodeAt(i) - 65 + 1);
+    }
+    col -= 1; // Make it 0-based
+
+    const row = parseInt(rowStr) - 1; // Make it 0-based
+
+    if (row < 0) return null;
+
+    return { col, row };
+  }
+
+  /**
+   * Convert row and column coordinates to Excel notation
+   * @private
+   * @param {number} row - Row index (0-based)
+   * @param {number} col - Column index (0-based)
+   * @returns {string} Excel cell reference (e.g., "A1", "AA10")
+   */
+  _coordsToExcel(row, col) {
+    let columnName = '';
+    let tempCol = col + 1;
+
+    while (tempCol > 0) {
+      tempCol--;
+      columnName = String.fromCharCode(65 + (tempCol % 26)) + columnName;
+      tempCol = Math.floor(tempCol / 26);
+    }
+
+    return columnName + (row + 1);
+  }
+
+  /**
+   * Get metadata about a selection range
+   * @private
+   * @param {Object} start - Start coordinates {col, row}
+   * @param {Object} end - End coordinates {col, row}
+   * @returns {Object} Selection metadata
+   */
+  _getSelectionMetadata(start, end) {
+    const minRow = Math.min(start.row, end.row);
+    const maxRow = Math.max(start.row, end.row);
+    const minCol = Math.min(start.col, end.col);
+    const maxCol = Math.max(start.col, end.col);
+
+    const rows = maxRow - minRow + 1;
+    const cols = maxCol - minCol + 1;
+    const cellCount = rows * cols;
+
+    return {
+      rows,
+      cols,
+      cellCount,
+      bounds: {
+        minRow,
+        maxRow,
+        minCol,
+        maxCol
+      }
+    };
+  }
+
+  /**
+   * Get the bounds of the current selection
+   * @private
+   * @param {Set} positions - Set of grid positions
+   * @returns {Object} Bounds {minRow, maxRow, minCol, maxCol}
+   */
+  _getSelectionBounds(positions) {
+    let minRow = Infinity;
+    let maxRow = -Infinity;
+    let minCol = Infinity;
+    let maxCol = -Infinity;
+
+    positions.forEach(gridKey => {
+      const [row, col] = gridKey.split(',').map(Number);
+      minRow = Math.min(minRow, row);
+      maxRow = Math.max(maxRow, row);
+      minCol = Math.min(minCol, col);
+      maxCol = Math.max(maxCol, col);
+    });
+
+    return { minRow, maxRow, minCol, maxCol };
+  }
+}
+
+// Export to window for global access
+window.TrustEditorAPI = TrustEditorAPI;
+
+/**
+ * PURE VANILLA JAVASCRIPT TEXT EDITOR
+ * No external libraries - No CodeMirror
+ * Features: Bold, Italic, Underline per character with perfect grid alignment
+ */
+class VanillaTextEditor {
+  constructor() {
+    // Font metrics
+    this.CHAR_WIDTH = 0;
+    this.LINE_HEIGHT = 24;
+    this.FONT_SIZE = 16;
+    this.PADDING = 20;
+
+    // Character formatting map - stores formatting for each character position
+    this.characterFormats = new Map();
+
+    // Search state
+    this.searchTerm = "";
+    this.searchMatches = [];
+    this.currentMatchIndex = -1;
+    this.searchOptions = {
+      caseSensitive: false,
+      wholeWord: false
+    };
+
+    // Selection state
+    this.selection = {
+      start: 0,
+      end: 0,
+      text: "",
+      length: 0,
+    };
+
+    // State
+    this.state = {
+      text: "",
+      cursor: {
+        position: 0,
+        line: 0,
+        column: 0,
+        x: 0,
+        y: 0,
+      },
+      lines: [],
+      words: [],
+      characters: [],
+    };
+
+    // Grid visibility
+    this.showGrid = false;
+
+    // Font settings
+    this.currentFont = "'Roboto Mono', monospace";
+    this.currentFontSize = "16px";
+
+    // DOM elements
+    this.input = document.getElementById("hidden-input");
+    this.overlay = document.getElementById("text-overlay");
+    this.canvas = document.getElementById("grid-canvas");
+    this.ctx = this.canvas.getContext("2d");
+    this.gridToggle = document.getElementById("gridToggle");
+    this.selectionInfo = document.getElementById("selectionInfo");
+    this.searchInput = document.getElementById("searchInput");
+    this.searchCount = document.getElementById("searchCount");
+    this.loadingSpinner = document.getElementById("loading-spinner");
+
+    // Initialize
+    this.init();
+  }
+
+  init() {
+    // Wait for fonts to load
+    document.fonts.ready.then(() => {
+      this.calibrateFontMetrics();
+      this.setupEventListeners();
+      this.setupTabSwitching();
+      this.setupConfigHandlers();
+      this.loadSampleText();
+
+      // Initialize Excel Grid Selector
+      if (window.GridExcelSelector) {
+        this.gridExcelSelector = new GridExcelSelector(this);
+        console.log("[Editor] GridExcelSelector initialized");
+      }
+    });
+  }
+
+  setupTabSwitching() {
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const tabName = button.dataset.tab;
+
+        // Update active button
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        button.classList.add("active");
+
+        // Update active content
+        tabContents.forEach((content) => content.classList.remove("active"));
+        document.getElementById(`${tabName}Tab`).classList.add("active");
+      });
+    });
+  }
+
+  setupConfigHandlers() {
+    const configInput = document.getElementById("configInput");
+
+    // Validate JSON on input
+    configInput.addEventListener("input", () => {
+      this.validateConfigInput();
+    });
+
+    // Initial validation
+    this.validateConfigInput();
+  }
+
+  validateConfigInput() {
+    const configInput = document.getElementById("configInput");
+
+    try {
+      // Try to parse to check validity
+      JSON.parse(configInput.value);
+      // Valid JSON - normal border
+      configInput.style.borderColor = "#30363d";
+    } catch (e) {
+      // Invalid JSON - red border
+      configInput.style.borderColor = "#ff7b72";
+    }
+  }
+
+  calibrateFontMetrics() {
+    console.log("[calibrateFontMetrics] Starting calibration...");
+    console.log("[calibrateFontMetrics] Current font:", this.currentFont);
+    console.log("[calibrateFontMetrics] Current size:", this.currentFontSize);
+
+    // Create hidden measuring element
+    const measurer = document.createElement("span");
+    measurer.style.position = "absolute";
+    measurer.style.visibility = "hidden";
+    measurer.style.whiteSpace = "pre";
+    measurer.style.fontFamily =
+      this.currentFont || "'Roboto Mono', monospace";
+    measurer.style.fontSize = this.currentFontSize || "16px";
+    measurer.style.lineHeight = "1.5";
+    measurer.style.letterSpacing = "0";
+    measurer.style.fontWeight = "400";
+    measurer.style.fontStyle = "normal";
+
+    console.log(
+      "[calibrateFontMetrics] Measurer font:",
+      measurer.style.fontFamily
+    );
+    console.log(
+      "[calibrateFontMetrics] Measurer size:",
+      measurer.style.fontSize
+    );
+
+    // Measure 10 characters for accuracy
+    measurer.textContent = "MMMMMMMMMM";
+    document.body.appendChild(measurer);
+
+    // Force a reflow to ensure styles are applied
+    const forceReflow = measurer.offsetHeight;
+
+    const rect = measurer.getBoundingClientRect();
+    const oldCharWidth = this.CHAR_WIDTH;
+    const oldLineHeight = this.LINE_HEIGHT;
+    this.CHAR_WIDTH = rect.width / 10;
+    this.LINE_HEIGHT = rect.height;
+
+    console.log("[calibrateFontMetrics] Measured rect width:", rect.width);
+    console.log("[calibrateFontMetrics] Computed style font:", window.getComputedStyle(measurer).fontFamily);
+
+    document.body.removeChild(measurer);
+
+    console.log(
+      "[calibrateFontMetrics] Old CHAR_WIDTH:",
+      oldCharWidth,
+      "-> New:",
+      this.CHAR_WIDTH
+    );
+    console.log(
+      "[calibrateFontMetrics] Old LINE_HEIGHT:",
+      oldLineHeight,
+      "-> New:",
+      this.LINE_HEIGHT
+    );
+
+    // Update display
+    document.getElementById(
+      "charWidthDisplay"
+    ).textContent = `W: ${this.CHAR_WIDTH.toFixed(3)}px`;
+    document.getElementById(
+      "lineHeightDisplay"
+    ).textContent = `H: ${this.LINE_HEIGHT.toFixed(1)}px`;
+
+    // Update grid if visible
+    if (this.showGrid) {
+      console.log("[calibrateFontMetrics] Updating grid...");
+      this.updateGrid();
+    }
+    console.log("[calibrateFontMetrics] Complete");
+  }
+
+  changeFont(fontFamily) {
+    console.log("[changeFont] Called with:", fontFamily);
+    console.log("[changeFont] Previous font:", this.currentFont);
+
+    // Show loading spinner
+    this.loadingSpinner.classList.add("visible");
+
+    // Properly format font family with quotes and fallback
+    const formattedFont = `'${fontFamily}', monospace`;
+    this.currentFont = formattedFont;
+
+    // Update textarea and overlay font
+    this.input.style.fontFamily = formattedFont;
+    this.overlay.style.fontFamily = formattedFont;
+
+    console.log(
+      "[changeFont] Updated input font to:",
+      this.input.style.fontFamily
+    );
+    console.log(
+      "[changeFont] Updated overlay font to:",
+      this.overlay.style.fontFamily
+    );
+
+    // Load the font before measuring
+    console.log("[changeFont] Loading font...");
+    const fontToLoad = fontFamily === "monospace" ? "monospace" : `16px '${fontFamily}'`;
+
+    document.fonts.load(fontToLoad).then(() => {
+      console.log("[changeFont] Font loaded, adding delay for rendering...");
+      // Add a small delay to ensure font is fully applied
+      setTimeout(() => {
+        // Force browser reflow and recalibrate
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            console.log("[changeFont] Calling calibrateFontMetrics...");
+            this.calibrateFontMetrics();
+
+            // Re-render everything with new font
+            console.log("[changeFont] Calling handleInput to re-render...");
+            this.handleInput();
+
+            // Hide loading spinner
+            this.loadingSpinner.classList.remove("visible");
+            console.log("[changeFont] Complete");
+          });
+        });
+      }, 100);
+    }).catch(err => {
+      console.error("[changeFont] Font load failed:", err);
+      // Try anyway
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            this.calibrateFontMetrics();
+            this.handleInput();
+            // Hide loading spinner
+            this.loadingSpinner.classList.remove("visible");
+          });
+        });
+      }, 100);
+    });
+  }
+
+  changeFontSize(size) {
+    console.log("[changeFontSize] Called with:", size);
+    console.log("[changeFontSize] Previous size:", this.currentFontSize);
+
+    this.currentFontSize = size + "px";
+    const lineHeight = parseInt(size) * 1.5 + "px";
+
+    console.log("[changeFontSize] Calculated line height:", lineHeight);
+
+    // Update textarea and overlay
+    this.input.style.fontSize = size + "px";
+    this.input.style.lineHeight = lineHeight;
+    this.overlay.style.fontSize = size + "px";
+    this.overlay.style.lineHeight = lineHeight;
+
+    console.log(
+      "[changeFontSize] Updated input fontSize to:",
+      this.input.style.fontSize
+    );
+    console.log(
+      "[changeFontSize] Updated overlay fontSize to:",
+      this.overlay.style.fontSize
+    );
+
+    // Force reflow before recalibrating
+    console.log("[changeFontSize] Forcing reflow...");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Recalibrate metrics
+        console.log("[changeFontSize] Calling calibrateFontMetrics...");
+        this.calibrateFontMetrics();
+
+        // Re-render everything with new size
+        console.log("[changeFontSize] Calling handleInput to re-render...");
+        this.handleInput();
+        console.log("[changeFontSize] Complete");
+      });
+    });
+  }
+
+  setupEventListeners() {
+    // Text input events
+    this.input.addEventListener("input", () => this.handleInput());
+
+    // Selection events
+    this.input.addEventListener("select", () => this.updateSelection());
+    this.input.addEventListener("selectionchange", () =>
+      this.updateSelection()
+    );
+    document.addEventListener("selectionchange", () => {
+      if (document.activeElement === this.input) {
+        this.updateSelection();
+      }
+    });
+
+    // Cursor events
+    ["keyup", "click", "keydown", "mouseup"].forEach((event) => {
+      this.input.addEventListener(event, () => {
+        this.updateCursor();
+        this.updateSelection();
+      });
+    });
+
+    // Grid toggle
+    this.gridToggle.addEventListener("click", () => this.toggleGrid());
+
+    // Search input
+    this.searchInput.addEventListener("input", (e) => {
+      this.searchTerm = e.target.value;
+      this.performSearch();
+    });
+
+    // Clear search on escape
+    this.searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.searchInput.value = "";
+        this.searchTerm = "";
+        this.performSearch();
+      }
+    });
+
+    // Toolbar buttons
+    document.querySelectorAll(".toolbar-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => this.handleToolbarClick(e));
+    });
+
+    // Font selection
+    const fontSelect = document.getElementById("fontSelect");
+    console.log("[setupEventListeners] Font select element:", fontSelect);
+    if (fontSelect) {
+      fontSelect.addEventListener("change", (e) => {
+        console.log("[Font Select Change Event] Value:", e.target.value);
+        this.changeFont(e.target.value);
+      });
+      console.log("[setupEventListeners] Font select listener attached");
+    } else {
+      console.error("[setupEventListeners] Font select element not found!");
+    }
+
+    // Font size selection
+    const sizeSelect = document.getElementById("sizeSelect");
+    console.log("[setupEventListeners] Size select element:", sizeSelect);
+    if (sizeSelect) {
+      sizeSelect.addEventListener("change", (e) => {
+        console.log("[Size Select Change Event] Value:", e.target.value);
+        this.changeFontSize(e.target.value);
+      });
+      console.log("[setupEventListeners] Size select listener attached");
+    } else {
+      console.error("[setupEventListeners] Size select element not found!");
+    }
+
+    // Window resize
+    window.addEventListener("resize", () => this.calibrateFontMetrics());
+  }
+
+  handleToolbarClick(e) {
+    const command = e.target.closest(".toolbar-btn").dataset.command;
+
+    switch (command) {
+      case "bold":
+        this.applyFormatting("bold");
+        break;
+      case "italic":
+        this.applyFormatting("italic");
+        break;
+      case "underline":
+        this.applyFormatting("underline");
+        break;
+      case "clear":
+        this.clearAll();
+        break;
+      case "select-all":
+        this.input.select();
+        this.updateSelection();
+        break;
+      case "insert-table":
+        this.insertMarkdownTable();
+        break;
+      case "insert-bar-chart":
+        this.insertBarChart();
+        break;
+    }
+  }
+
+  insertMarkdownTable() {
+    // Clear existing content
+    this.input.value = "";
+    this.characterFormats.clear();
+
+    // Create a perfectly aligned markdown table
+    // Each column is designed to fit the grid exactly
+    const table = `
+╔══════════════════════════════════════════════════════════════════╗
+║           MARKDOWN TABLE - MONOSPACE GRID DEMO                   ║
+╚══════════════════════════════════════════════════════════════════╝
+
+| Column A     | Column B     | Column C     | Column D     |
+|--------------|--------------|--------------|--------------|
+| Cell A1      | Cell B1      | Cell C1      | Cell D1      |
+| Alpha        | Beta         | Gamma        | Delta        |
+| 12345        | 67890        | 11111        | 22222        |
+| Lorem        | Ipsum        | Dolor        | Sit          |
+| JavaScript   | Python       | Ruby         | Go           |
+| ✓ Complete   | ✗ Failed     | ⚠ Warning    | ℹ Info       |
+| 100.00%      | 75.50%       | 50.25%       | 25.10%       |
+|--------------|--------------|--------------|--------------|
+| Total: 8     | Rows: 8      | Cols: 4      | Cells: 32    |
+
+ASCII Box Drawing Characters:
+┌─────────┬─────────┬─────────┐
+│ Box 1   │ Box 2   │ Box 3   │
+├─────────┼─────────┼─────────┤
+│ Item A  │ Item B  │ Item C  │
+│ Item D  │ Item E  │ Item F  │
+└─────────┴─────────┴─────────┘
+
+Grid-Aligned Data:
+    0    5    10   15   20   25   30   35   40   45   50
+    |    |    |    |    |    |    |    |    |    |    |
+    ▼    ▼    ▼    ▼    ▼    ▼    ▼    ▼    ▼    ▼    ▼
+[==================================================] 100%
+    ↑
+    Perfect character alignment with monospace font!
+
+Each character occupies exactly one grid cell.
+Toggle the grid view to see the perfect alignment! 🎯`.trim();
+
+    this.input.value = table;
+    this.handleInput();
+
+    // Optionally turn on the grid to show alignment
+    if (!this.showGrid) {
+      this.toggleGrid();
+    }
+
+    // Scroll to top
+    this.input.scrollTop = 0;
+    this.overlay.scrollTop = 0;
+  }
+
+  insertBarChart() {
+    // Clear existing content
+    this.input.value = "";
+    this.characterFormats.clear();
+
+    // Create ASCII bar chart
+    const chart = `| Value       | 95%   | 72%   | 88%   | 56%   | 91%   |
+|-------------|-------|-------|-------|-------|-------|
+| 100%        |   █   |       |   █   |       |   █   |
+| 90%         |   █   |       |   █   |       |   █   |
+| 80%         |   █   |   █   |   █   |       |   █   |
+| 70%         |   █   |   █   |   █   |       |   █   |
+| 60%         |   █   |   █   |   █   |   █   |   █   |
+| 50%         |   █   |   █   |   █   |   █   |   █   |
+| 40%         |   █   |   █   |   █   |   █   |   █   |
+| 30%         |   █   |   █   |   █   |   █   |   █   |
+| 20%         |   █   |   █   |   █   |   █   |   █   |
+| 10%         |   █   |   █   |   █   |   █   |   █   |
+| 0%          |───────|───────|───────|───────|───────|
+| Top Clients | YTD   | Q1    | Q2    | Q3    |  Q4   |
+`;
+
+    this.input.value = chart;
+    this.handleInput();
+
+    // Optionally turn on the grid to show alignment
+    if (!this.showGrid) {
+      this.toggleGrid();
+    }
+
+    // Scroll to top
+    this.input.scrollTop = 0;
+    this.overlay.scrollTop = 0;
+  }
+
+  applyFormatting(type) {
+    if (this.selection.length === 0) return;
+
+    // Apply formatting to selected range
+    for (let i = this.selection.start; i < this.selection.end; i++) {
+      if (!this.characterFormats.has(i)) {
+        this.characterFormats.set(i, {
+          bold: false,
+          italic: false,
+          underline: false,
+        });
+      }
+
+      const format = this.characterFormats.get(i);
+      format[type] = !format[type];
+    }
+
+    // Re-render
+    this.renderOverlay();
+    this.updateFormattingState();
+  }
+
+  clearAll() {
+    this.input.value = "";
+    this.characterFormats.clear();
+    this.handleInput();
+  }
+
+  handleInput() {
+    console.log("[handleInput] Called");
+    const text = this.input.value;
+    const oldLength = this.state.text.length;
+    const newLength = text.length;
+    console.log(
+      "[handleInput] Text length: old=" + oldLength + ", new=" + newLength
+    );
+
+    // Handle text deletion - shift formatting map
+    if (newLength < oldLength) {
+      const diff = oldLength - newLength;
+      const cursorPos = this.input.selectionStart;
+
+      // Remove formatting for deleted characters
+      for (let i = cursorPos; i < cursorPos + diff; i++) {
+        this.characterFormats.delete(i);
+      }
+
+      // Shift remaining formatting
+      const newFormats = new Map();
+      this.characterFormats.forEach((format, pos) => {
+        if (pos < cursorPos) {
+          newFormats.set(pos, format);
+        } else if (pos >= cursorPos + diff) {
+          newFormats.set(pos - diff, format);
+        }
+      });
+      this.characterFormats = newFormats;
+    }
+
+    // Handle text insertion - shift formatting map
+    if (newLength > oldLength) {
+      const diff = newLength - oldLength;
+      const cursorPos = this.input.selectionStart - diff;
+
+      // Shift formatting for characters after insertion point
+      const newFormats = new Map();
+      this.characterFormats.forEach((format, pos) => {
+        if (pos < cursorPos) {
+          newFormats.set(pos, format);
+        } else {
+          newFormats.set(pos + diff, format);
+        }
+      });
+      this.characterFormats = newFormats;
+    }
+
+    this.state.text = text;
+
+    // Parse structure
+    this.parseLines(text);
+    this.parseWords(text);
+    this.parseCharacters(text);
+
+    // Update displays
+    this.updateCursor();
+    this.renderOverlay();
+    this.updateStateDisplay();
+
+    // Update grid
+    if (this.showGrid) {
+      this.updateGrid();
+    }
+  }
+
+  parseLines(text) {
+    const lines = text.split("\n");
+    this.state.lines = [];
+    let position = 0;
+
+    lines.forEach((line, index) => {
+      this.state.lines.push({
+        text: line,
+        start: position,
+        end: position + line.length,
+        number: index,
+        length: line.length,
+      });
+      position += line.length + 1;
+    });
+  }
+
+  parseWords(text) {
+    this.state.words = [];
+    const regex = /\S+/g;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      const start = match.index;
+      const lineData = this.getLineForPosition(start);
+      const column = start - lineData.start;
+
+      this.state.words.push({
+        text: match[0],
+        start: start,
+        end: start + match[0].length,
+        line: lineData.number,
+        column: column,
+        position: {
+          x: column * this.CHAR_WIDTH,
+          y: lineData.number * this.LINE_HEIGHT,
+        },
+      });
+    }
+  }
+
+  parseCharacters(text) {
+    this.state.characters = [];
+
+    for (let i = 0; i < text.length; i++) {
+      const lineData = this.getLineForPosition(i);
+      const column = i - lineData.start;
+
+      this.state.characters.push({
+        char: text[i],
+        index: i,
+        line: lineData.number,
+        column: column,
+        position: {
+          x: column * this.CHAR_WIDTH,
+          y: lineData.number * this.LINE_HEIGHT,
+        },
+      });
+    }
+  }
+
+  getLineForPosition(position) {
+    for (let line of this.state.lines) {
+      if (position >= line.start && position <= line.end) {
+        return line;
+      }
+    }
+    return this.state.lines[0] || { start: 0, number: 0 };
+  }
+
+  updateCursor() {
+    const position = this.input.selectionStart;
+    const lineData = this.getLineForPosition(position);
+    const column = position - lineData.start;
+
+    this.state.cursor = {
+      position: position,
+      line: lineData.number,
+      column: column,
+      x: column * this.CHAR_WIDTH,
+      y: lineData.number * this.LINE_HEIGHT,
+    };
+
+    this.updateStateDisplay();
+  }
+
+  updateSelection() {
+    const start = this.input.selectionStart;
+    const end = this.input.selectionEnd;
+    const text = this.input.value.substring(start, end);
+
+    // Calculate grid positions in Excel notation
+    let gridStart = "";
+    let gridEnd = "";
+
+    if (end > start) {
+      // Get line and column for start position
+      const startLineData = this.getLineForPosition(start);
+      const startCol = start - startLineData.start;
+      gridStart = this.positionToExcelNotation(startLineData.number, startCol);
+
+      // Get line and column for end position (end - 1 because end is exclusive)
+      const endLineData = this.getLineForPosition(Math.max(start, end - 1));
+      const endCol = Math.max(start, end - 1) - endLineData.start;
+      gridEnd = this.positionToExcelNotation(endLineData.number, endCol);
+    }
+
+    this.selection = {
+      start: start,
+      end: end,
+      text: text,
+      length: end - start,
+      grid: {
+        start: gridStart,
+        end: gridEnd,
+      },
+    };
+
+    // Update selection info
+    if (this.selection.length > 0) {
+      this.selectionInfo.textContent = `${this.selection.length} chars selected`;
+      this.selectionInfo.classList.add("visible");
+    } else {
+      this.selectionInfo.classList.remove("visible");
+    }
+
+    // Update display
+    document.getElementById("selectionState").innerHTML = SyntaxHighlighter.highlightJson(
+      JSON.stringify(this.selection, null, 2)
+    );
+
+    // Re-render to show selection
+    this.renderOverlay();
+  }
+
+  performSearch(options = {}) {
+    // Merge options with current search options
+    this.searchOptions = {
+      ...this.searchOptions,
+      ...options
+    };
+
+    this.searchMatches = [];
+    this.currentMatchIndex = -1;
+
+    if (!this.searchTerm) {
+      this.searchCount.textContent = "0";
+      this.renderOverlay();
+      return;
+    }
+
+    const { caseSensitive, wholeWord } = this.searchOptions;
+    const searchText = caseSensitive ? this.searchTerm : this.searchTerm.toLowerCase();
+    const text = caseSensitive ? this.state.text : this.state.text.toLowerCase();
+
+    if (wholeWord) {
+      // Use regex for whole word matching
+      const flags = caseSensitive ? 'g' : 'gi';
+      const escapedSearch = this.searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\</body>');
+      const regex = new RegExp(`\\b${escapedSearch}\\b`, flags);
+      let match;
+
+      while ((match = regex.exec(this.state.text)) !== null) {
+        this.searchMatches.push({
+          start: match.index,
+          end: match.index + match[0].length,
+        });
+      }
+    } else {
+      // Simple substring search
+      let index = 0;
+      while ((index = text.indexOf(searchText, index)) !== -1) {
+        this.searchMatches.push({
+          start: index,
+          end: index + this.searchTerm.length,
+        });
+        index += 1;
+      }
+    }
+
+    // Update match count display
+    this.updateSearchCountDisplay();
+
+    // Re-render with highlights
+    this.renderOverlay();
+  }
+
+  updateSearchCountDisplay() {
+    if (this.searchMatches.length === 0) {
+      this.searchCount.textContent = "0";
+    } else if (this.currentMatchIndex >= 0) {
+      this.searchCount.textContent = `${this.currentMatchIndex + 1} of ${this.searchMatches.length}`;
+    } else {
+      this.searchCount.textContent = this.searchMatches.length.toString();
+    }
+  }
+
+  navigateToNextMatch() {
+    if (this.searchMatches.length === 0) return;
+
+    this.currentMatchIndex = (this.currentMatchIndex + 1) % this.searchMatches.length;
+    const match = this.searchMatches[this.currentMatchIndex];
+
+    // Move cursor to this match
+    this.input.selectionStart = match.start;
+    this.input.selectionEnd = match.end;
+    this.input.focus();
+
+    this.updateCursor();
+    this.updateSearchCountDisplay();
+    this.renderOverlay();
+  }
+
+  navigateToPreviousMatch() {
+    if (this.searchMatches.length === 0) return;
+
+    this.currentMatchIndex = this.currentMatchIndex <= 0
+      ? this.searchMatches.length - 1
+      : this.currentMatchIndex - 1;
+    const match = this.searchMatches[this.currentMatchIndex];
+
+    // Move cursor to this match
+    this.input.selectionStart = match.start;
+    this.input.selectionEnd = match.end;
+    this.input.focus();
+
+    this.updateCursor();
+    this.updateSearchCountDisplay();
+    this.renderOverlay();
+  }
+
+  moveCursorToPositionByGrid({ col, row }) {
+    // Parse column from Excel notation (A=0, B=1, ..., Z=25, AA=26, etc.)
+    let colIndex = 0;
+    const colStr = col.toUpperCase();
+    for (let i = 0; i < colStr.length; i++) {
+      colIndex = colIndex * 26 + (colStr.charCodeAt(i) - 65 + 1);
+    }
+    colIndex -= 1; // Make it 0-based
+
+    // Convert row to 0-based index
+    const rowIndex = row - 1;
+
+    // Validate row index
+    if (rowIndex < 0 || rowIndex >= this.state.lines.length) {
+      throw new Error(`Row ${row} is out of bounds. Valid range: 1-${this.state.lines.length}`);
+    }
+
+    const line = this.state.lines[rowIndex];
+
+    // Validate column index
+    if (colIndex < 0) {
+      throw new Error(`Invalid column: ${col}`);
+    }
+
+    // Calculate position (allow cursor at end of line)
+    const position = Math.min(line.start + colIndex, line.end);
+
+    // Set cursor position
+    this.input.selectionStart = position;
+    this.input.selectionEnd = position;
+    this.input.focus();
+
+    // Update cursor state
+    this.updateCursor();
+    this.renderOverlay();
+
+    return {
+      success: true,
+      position: position,
+      line: rowIndex,
+      column: colIndex
+    };
+  }
+
+  isInSearchMatch(position) {
+    for (let match of this.searchMatches) {
+      if (position >= match.start && position < match.end) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  renderOverlay() {
+    console.log("[renderOverlay] Starting render...");
+    console.log("[renderOverlay] Current font:", this.currentFont);
+    console.log("[renderOverlay] Current size:", this.currentFontSize);
+    console.log("[renderOverlay] Text length:", this.state.text.length);
+    let html = "";
+
+    for (let i = 0; i < this.state.text.length; i++) {
+      const char = this.state.text[i];
+
+      if (char === "\n") {
+        html += "<br>";
+      } else {
+        // Determine formatting classes
+        const format = this.characterFormats.get(i) || {
+          bold: false,
+          italic: false,
+          underline: false,
+        };
+        let classes = [];
+
+        if (format.bold) classes.push("char-bold");
+        if (format.italic) classes.push("char-italic");
+        if (format.underline) classes.push("char-underline");
+
+        // Calculate grid position for this character
+        const lineData = this.getLineForPosition(i);
+        const col = i - lineData.start;
+        const row = lineData.number;
+
+        // Check for custom grid highlight color
+        let inlineStyle = "";
+        if (this.gridExcelSelector && this.gridExcelSelector.isGridCellHighlighted(row, col)) {
+          const customColor = this.gridExcelSelector.getGridCellColor(row, col);
+          if (customColor) {
+            inlineStyle = ` style="background-color: ${customColor};"`;
+          } else {
+            classes.push("char-excel-highlight");
+          }
+        }
+
+        // Add search highlight (light blue background)
+        if (this.isInSearchMatch(i)) {
+          classes.push("char-search-match");
+        }
+
+        // Add selection highlight
+        if (i >= this.selection.start && i < this.selection.end) {
+          classes.push("char-selected");
+        }
+
+        // Convert column number to Excel notation (A, B, C, ..., Z, AA, AB, ...)
+        let columnName = '';
+        let tempCol = col + 1;
+        while (tempCol > 0) {
+          tempCol--;
+          columnName = String.fromCharCode(65 + (tempCol % 26)) + columnName;
+          tempCol = Math.floor(tempCol / 26);
+        }
+
+        const className =
+          classes.length > 0 ? ` class="${classes.join(" ")}"` : "";
+        const dataAttrs = ` data-col="${columnName}" data-row="${row + 1}" data-val="${this.escapeHtml(char)}"`;
+        html += `<span${className}${dataAttrs}${inlineStyle}>${this.escapeHtml(char)}</span>`;
+      }
+    }
+
+    // Render grid overlay for highlighted cells beyond text content
+    if (this.gridExcelSelector) {
+      html += this.renderGridOverlay();
+    }
+
+    this.overlay.innerHTML = html;
+  }
+
+  renderGridOverlay() {
+    const highlightedCells = this.gridExcelSelector.getHighlightedPositions();
+    if (highlightedCells.size === 0) return '';
+
+    const lines = this.state.text.split('\n');
+    let overlayHTML = '';
+
+    highlightedCells.forEach(gridKey => {
+      const [rowStr, colStr] = gridKey.split(',');
+      const row = parseInt(rowStr);
+      const col = parseInt(colStr);
+
+      // Check if this grid cell is beyond the text content
+      if (row >= lines.length || col >= (lines[row] || '').length) {
+        // This is an empty cell - render it with lower opacity
+        const top = row * this.LINE_HEIGHT + this.PADDING;
+        const left = col * this.CHAR_WIDTH + this.PADDING;
+
+        // Check for custom color
+        const customColor = this.gridExcelSelector.getGridCellColor(row, col);
+        let styleAttr;
+        if (customColor) {
+          styleAttr = `style="position: absolute; top: ${top}px; left: ${left}px; width: ${this.CHAR_WIDTH}px; height: ${this.LINE_HEIGHT}px; display: inline-block; opacity: 0.3; background-color: ${customColor};"`;
+          overlayHTML += `<span class="char-excel-empty" ${styleAttr}></span>`;
+        } else {
+          styleAttr = `style="position: absolute; top: ${top}px; left: ${left}px; width: ${this.CHAR_WIDTH}px; height: ${this.LINE_HEIGHT}px; display: inline-block; opacity: 0.3;"`;
+          overlayHTML += `<span class="char-excel-highlight char-excel-empty" ${styleAttr}></span>`;
+        }
+      }
+    });
+
+    return overlayHTML;
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  toggleGrid() {
+    this.showGrid = !this.showGrid;
+    this.gridToggle.classList.toggle("active", this.showGrid);
+    this.canvas.classList.toggle("visible", this.showGrid);
+
+    if (this.showGrid) {
+      this.updateGrid();
+    }
+  }
+
+  updateGrid() {
+    // Get the editor wrapper dimensions
+    const wrapper = document.querySelector(".editor-wrapper");
+    const wrapperRect = wrapper.getBoundingClientRect();
+
+    // Use full wrapper dimensions
+    const contentWidth = wrapperRect.width;
+    const contentHeight = wrapperRect.height;
+
+    const cols = Math.ceil(contentWidth / this.CHAR_WIDTH);
+    const rows = Math.ceil(contentHeight / this.LINE_HEIGHT);
+
+    this.canvas.width = contentWidth;
+    this.canvas.height = contentHeight;
+    this.canvas.style.width = `${contentWidth}px`;
+    this.canvas.style.height = `${contentHeight}px`;
+
+    this.ctx.clearRect(0, 0, contentWidth, contentHeight);
+
+    // Draw grid
+    const gradient = this.ctx.createLinearGradient(
+      0,
+      0,
+      contentWidth,
+      contentHeight
+    );
+    gradient.addColorStop(0, "#4da6ff");
+    gradient.addColorStop(1, "#1e90ff");
+
+    this.ctx.strokeStyle = gradient;
+    this.ctx.lineWidth = 0.5;
+    this.ctx.globalAlpha = 0.5;
+
+    // Vertical lines
+    for (let x = 0; x <= contentWidth; x += this.CHAR_WIDTH) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(Math.floor(x) + 0.5, 0);
+      this.ctx.lineTo(Math.floor(x) + 0.5, contentHeight);
+      this.ctx.stroke();
+    }
+
+    // Horizontal lines
+    for (let y = 0; y <= contentHeight; y += this.LINE_HEIGHT) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, Math.floor(y) + 0.5);
+      this.ctx.lineTo(contentWidth, Math.floor(y) + 0.5);
+      this.ctx.stroke();
+    }
+
+    // Update grid state
+    document.getElementById("gridState").innerHTML = SyntaxHighlighter.highlightJson(
+      JSON.stringify(
+        {
+          dimensions: `${cols} × ${rows}`,
+          charWidth: this.CHAR_WIDTH.toFixed(3),
+          lineHeight: this.LINE_HEIGHT,
+          totalCells: cols * rows,
+        },
+        null,
+        2
+      )
+    );
+  }
+
+  updateFormattingState() {
+    // Show formatting for selected text
+    const formats = [];
+    for (
+      let i = this.selection.start;
+      i < Math.min(this.selection.end, this.selection.start + 10);
+      i++
+    ) {
+      const format = this.characterFormats.get(i);
+      if (format) {
+        formats.push({
+          pos: i,
+          char: this.state.text[i],
+          ...format,
+        });
+      }
+    }
+
+    document.getElementById("formattingState").innerHTML = SyntaxHighlighter.highlightJson(
+      JSON.stringify(formats.slice(0, 5), null, 2)
+    );
+  }
+
+  updateStateDisplay() {
+    // Update metrics
+    document.getElementById("charCount").textContent = this.state.text.length;
+    document.getElementById("wordCount").textContent =
+      this.state.words.length;
+    document.getElementById("lineCount").textContent =
+      this.state.lines.length || 1;
+
+    // Convert cursor position to Excel notation
+    const cursorExcel = this.positionToExcelNotation(this.state.cursor.line, this.state.cursor.column);
+    document.getElementById("cursorPos").textContent = cursorExcel;
+
+    // Update cursor state
+    document.getElementById("cursorState").innerHTML = SyntaxHighlighter.highlightJson(
+      JSON.stringify(this.state.cursor, null, 2)
+    );
+
+    // Update formatting state
+    this.updateFormattingState();
+
+    // Update grid word positions
+    this.updateGridWordPositions();
+  }
+
+  positionToExcelNotation(row, col) {
+    // Convert row and col to Excel notation (A1, B2, etc.)
+    let columnName = '';
+    let tempCol = col + 1; // Make it 1-based
+
+    while (tempCol > 0) {
+      tempCol--; // Make it 0-based for calculation
+      columnName = String.fromCharCode(65 + (tempCol % 26)) + columnName;
+      tempCol = Math.floor(tempCol / 26);
+    }
+
+    return columnName + (row + 1); // Row is 1-based
+  }
+
+  updateGridWordPositions() {
+    const gridElement = document.getElementById("gridWordPositions");
+    if (!gridElement) return;
+
+    const wordPositions = {};
+
+    this.state.words.forEach(word => {
+      const startExcel = this.positionToExcelNotation(word.line, word.column);
+      const endCol = word.column + word.text.length - 1;
+      const endExcel = this.positionToExcelNotation(word.line, endCol);
+
+      wordPositions[word.text] = {
+        start: startExcel,
+        end: endExcel
+      };
+    });
+
+    gridElement.innerHTML = SyntaxHighlighter.highlightJson(
+      JSON.stringify(wordPositions, null, 2)
+    );
+  }
+
+
+  loadSampleText() {
+    const sample = `TrustEditor is an open source license, with bi-directional input-output editor optimized for TrustLoop's unified intelligence layer. Please click on the LICENSE tab in the right panel for more information.`;
+
+    this.input.value = sample;
+    this.handleInput();
+  }
+}
+
+// Initialize the editor
+console.log("[Main] Creating VanillaTextEditor instance...");
+const editor = new VanillaTextEditor();
+console.log("[Main] VanillaTextEditor instance created");
+window.editor = editor; // Expose for debugging
+
+// Initialize the public API
+console.log("[Main] Creating TrustEditor API instance...");
+const api = new TrustEditorAPI(editor);
+window.TrustEditor = api; // Expose public API globally
+console.log("[Main] TrustEditor API instance created and exposed as window.TrustEditor");
+
+// Initialize LICENSE tab with syntax highlighting
+document.addEventListener('DOMContentLoaded', function() {
+  const licenseContent = document.querySelector('#licenseTab .state-json');
+  if (licenseContent) {
+    const licenseData = {
+      "$license": {
+        "license": "TrustLoop.AI TrustLoop Protocol version 1",
+        "terms": "TrustLoop.AI/license/1",
+        "version": "1.0",
+        "created": "2025-09-30T11:45:53.710Z"
+      }
+    };
+    licenseContent.innerHTML = SyntaxHighlighter.highlightJson(
+      JSON.stringify(licenseData, null, 2)
+    );
+  }
+});
+
+/**
+ * Excel-like Grid Selection System
+ * Allows selecting grid cells using Excel-style notation (A10:B22)
+ */
+class GridExcelSelector {
+  constructor(editor) {
+    this.editor = editor;
+    this.selectedCells = [];
+    this.highlightedPositions = new Set();
+    this.customHighlights = new Map(); // Map of gridKey -> color
+
+    // DOM elements
+    this.excelInput = document.getElementById("excel-formula-input");
+    this.excelButton = document.getElementById("excel-formula-button");
+
+    console.log("[GridExcel] Constructor - Input element:", this.excelInput);
+    console.log("[GridExcel] Constructor - Button element:", this.excelButton);
+
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    console.log("[GridExcel] Setting up event listeners");
+    if (this.excelButton) {
+      console.log("[GridExcel] Attaching click listener to button");
+      this.excelButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("[GridExcel] Button clicked!");
+        this.executeFormula();
+      });
+    } else {
+      console.error("[GridExcel] Excel button not found!");
+    }
+
+    if (this.excelInput) {
+      console.log("[GridExcel] Attaching keydown listener to input");
+
+      // Log input changes for debugging
+      this.excelInput.addEventListener("input", (e) => {
+        console.log("[GridExcel] Input changed to:", e.target.value);
+      });
+
+      // Execute on Enter key
+      this.excelInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          console.log("[GridExcel] Enter key pressed!");
+          this.executeFormula();
+        }
+      });
+    } else {
+      console.error("[GridExcel] Excel input not found!");
+    }
+  }
+
+  executeFormula() {
+    console.log("[GridExcel] executeFormula called");
+    console.log("[GridExcel] excelInput:", this.excelInput);
+    console.log("[GridExcel] excelInput.value:", this.excelInput ? this.excelInput.value : "null");
+
+    const formula = this.excelInput.value.trim();
+    console.log("[GridExcel] Executing formula:", formula);
+
+    // Clear previous highlights
+    this.clearHighlights();
+
+    if (!formula) {
+      console.log("[GridExcel] Formula is empty, clearing highlights");
+      this.editor.renderOverlay();
+      return;
+    }
+
+    // Parse SELECT function
+    const selectMatch = formula.match(/^=SELECT\(([A-Z]+\d+):([A-Z]+\d+)\)$/i);
+    if (!selectMatch) {
+      console.error(
+        "[GridExcel] Invalid formula. Use format: =SELECT(A10:B22)"
+      );
+      return;
+    }
+
+    const startCell = selectMatch[1].toUpperCase();
+    const endCell = selectMatch[2].toUpperCase();
+
+    console.log("[GridExcel] Start cell:", startCell, "End cell:", endCell);
+
+    // Parse cell references
+    const start = this.parseCellReference(startCell);
+    const end = this.parseCellReference(endCell);
+
+    if (!start || !end) {
+      console.error("[GridExcel] Could not parse cell references");
+      return;
+    }
+
+    console.log("[GridExcel] Start coords:", start, "End coords:", end);
+
+    // Highlight the range
+    this.highlightRange(start, end);
+  }
+
+  parseCellReference(cellRef) {
+    // Parse cell reference like "A10" into {col: 0, row: 9}
+    const match = cellRef.match(/^([A-Z]+)(\d+)$/);
+    if (!match) return null;
+
+    const colStr = match[1];
+    const rowStr = match[2];
+
+    // Convert column letter(s) to number (A=0, B=1, ... Z=25, AA=26, etc.)
+    let col = 0;
+    for (let i = 0; i < colStr.length; i++) {
+      col = col * 26 + (colStr.charCodeAt(i) - 65 + 1);
+    }
+    col -= 1; // Make it 0-based
+
+    const row = parseInt(rowStr) - 1; // Make it 0-based
+
+    return { col, row };
+  }
+
+  highlightRange(start, end) {
+    // Ensure start is before end
+    const minRow = Math.min(start.row, end.row);
+    const maxRow = Math.max(start.row, end.row);
+    const minCol = Math.min(start.col, end.col);
+    const maxCol = Math.max(start.col, end.col);
+
+    console.log(
+      `[GridExcel] Highlighting rows ${minRow}-${maxRow}, cols ${minCol}-${maxCol}`
+    );
+
+    // Store grid coordinates instead of character positions
+    // This allows highlighting beyond the actual text content
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let col = minCol; col <= maxCol; col++) {
+        const gridKey = `${row},${col}`;
+        this.highlightedPositions.add(gridKey);
+      }
+    }
+
+    console.log(
+      "[GridExcel] Total grid cells highlighted:",
+      this.highlightedPositions.size
+    );
+
+    // Trigger re-render
+    this.editor.renderOverlay();
+  }
+
+  getLineStartPosition(lineIndex, lines) {
+    let position = 0;
+    for (let i = 0; i < lineIndex; i++) {
+      position += lines[i].length + 1; // +1 for newline
+    }
+    return position;
+  }
+
+  isGridCellHighlighted(row, col) {
+    const gridKey = `${row},${col}`;
+    return this.highlightedPositions.has(gridKey);
+  }
+
+  getGridCellColor(row, col) {
+    const gridKey = `${row},${col}`;
+    return this.customHighlights.get(gridKey) || null;
+  }
+
+  highlightRangeWithColor(start, end, color) {
+    // Ensure start is before end
+    const minRow = Math.min(start.row, end.row);
+    const maxRow = Math.max(start.row, end.row);
+    const minCol = Math.min(start.col, end.col);
+    const maxCol = Math.max(start.col, end.col);
+
+    console.log(
+      `[GridExcel] Highlighting rows ${minRow}-${maxRow}, cols ${minCol}-${maxCol} with color ${color}`
+    );
+
+    // Store grid coordinates with custom color
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let col = minCol; col <= maxCol; col++) {
+        const gridKey = `${row},${col}`;
+        this.highlightedPositions.add(gridKey);
+        if (color) {
+          this.customHighlights.set(gridKey, color);
+        }
+      }
+    }
+
+    console.log(
+      "[GridExcel] Total grid cells highlighted:",
+      this.highlightedPositions.size
+    );
+
+    // Trigger re-render
+    this.editor.renderOverlay();
+  }
+
+  clearHighlights() {
+    this.highlightedPositions.clear();
+    this.customHighlights.clear();
+  }
+
+  getHighlightedPositions() {
+    return this.highlightedPositions;
+  }
+}
+
+// Export for use in main editor
+window.GridExcelSelector = GridExcelSelector;
+
+/**
+ * Tree View Component
+ * Displays editor state as an interactive tree structure
+ */
+class TreeView {
+  constructor(editor) {
+    this.editor = editor;
+    this.container = document.getElementById('treeContent');
+    this.expandedNodes = new Set();
+  }
+
+  update() {
+    if (!this.container) return;
+
+    const treeData = this.buildTreeData();
+    this.render(treeData);
+  }
+
+  buildTreeData() {
+    return {
+      label: 'Editor State',
+      children: [
+        {
+          label: 'Text',
+          value: `${this.editor.state.text.length} characters`,
+          children: []
+        },
+        {
+          label: 'Lines',
+          value: `${this.editor.state.lines.length} total`,
+          children: this.editor.state.lines.slice(0, 10).map((line, idx) => ({
+            label: `Line ${idx + 1}`,
+            value: `"${line.text.substring(0, 30)}${line.text.length > 30 ? '...' : ''}"`,
+            children: []
+          }))
+        },
+        {
+          label: 'Words',
+          value: `${this.editor.state.words.length} total`,
+          children: this.editor.state.words.slice(0, 10).map((word, idx) => ({
+            label: `Word ${idx + 1}`,
+            value: `"${word.text}"`,
+            children: [
+              { label: 'Line', value: word.line, children: [] },
+              { label: 'Column', value: word.column, children: [] },
+              { label: 'Position', value: `(${word.position.x}, ${word.position.y})`, children: [] }
+            ]
+          }))
+        },
+        {
+          label: 'Cursor',
+          children: [
+            { label: 'Position', value: this.editor.state.cursor.position, children: [] },
+            { label: 'Line', value: this.editor.state.cursor.line, children: [] },
+            { label: 'Column', value: this.editor.state.cursor.column, children: [] },
+            { label: 'Grid', value: `(${this.editor.state.cursor.x}, ${this.editor.state.cursor.y})`, children: [] }
+          ]
+        },
+        {
+          label: 'Selection',
+          children: [
+            { label: 'Start', value: this.editor.selection.start, children: [] },
+            { label: 'End', value: this.editor.selection.end, children: [] },
+            { label: 'Length', value: this.editor.selection.length, children: [] },
+            { label: 'Text', value: `"${this.editor.selection.text.substring(0, 30)}${this.editor.selection.text.length > 30 ? '...' : ''}"`, children: [] },
+            {
+              label: 'Grid',
+              children: [
+                { label: 'Start', value: this.editor.selection.grid.start, children: [] },
+                { label: 'End', value: this.editor.selection.grid.end, children: [] }
+              ]
+            }
+          ]
+        },
+        {
+          label: 'Font',
+          children: [
+            { label: 'Family', value: this.editor.currentFont, children: [] },
+            { label: 'Size', value: this.editor.currentFontSize, children: [] },
+            { label: 'Char Width', value: `${this.editor.CHAR_WIDTH.toFixed(3)}px`, children: [] },
+            { label: 'Line Height', value: `${this.editor.LINE_HEIGHT}px`, children: [] }
+          ]
+        }
+      ]
+    };
+  }
+
+  render(data) {
+    this.container.innerHTML = this.renderNode(data, 'root');
+  }
+
+  renderNode(node, path) {
+    const hasChildren = node.children && node.children.length > 0;
+    const isExpanded = this.expandedNodes.has(path);
+    const nodeClass = hasChildren ? (isExpanded ? 'expanded' : 'collapsed') : '';
+
+    let html = `<div class="tree-node ${nodeClass}" data-path="${path}">`;
+
+    // Node label
+    html += `<div class="tree-node-label" onclick="window.treeView.toggleNode('${path}')">`;
+    if (hasChildren) {
+      html += `<span class="tree-node-icon">${isExpanded ? '▼' : '▶'}</span>`;
+    } else {
+      html += `<span class="tree-node-icon">•</span>`;
+    }
+    html += `<span class="tree-node-content">${node.label}</span>`;
+    if (node.value !== undefined) {
+      html += `<span class="tree-node-value">${this.escapeHtml(String(node.value))}</span>`;
+    }
+    html += `</div>`;
+
+    // Children
+    if (hasChildren) {
+      html += `<div class="tree-node-children">`;
+      node.children.forEach((child, idx) => {
+        html += this.renderNode(child, `${path}.${idx}`);
+      });
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    return html;
+  }
+
+  toggleNode(path) {
+    if (this.expandedNodes.has(path)) {
+      this.expandedNodes.delete(path);
+    } else {
+      this.expandedNodes.add(path);
+    }
+    this.update();
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+}
+
+// Initialize tree view when editor is ready
+window.addEventListener('DOMContentLoaded', () => {
+  // Wait for editor to be initialized
+  const checkEditor = setInterval(() => {
+    if (window.editor) {
+      window.treeView = new TreeView(window.editor);
+      window.treeView.update();
+      clearInterval(checkEditor);
+
+      // Update tree when text changes
+      const originalHandleInput = window.editor.handleInput.bind(window.editor);
+      window.editor.handleInput = function() {
+        originalHandleInput();
+        if (window.treeView) {
+          window.treeView.update();
+        }
+      };
+
+      // Update tree when selection changes
+      const originalUpdateSelection = window.editor.updateSelection.bind(window.editor);
+      window.editor.updateSelection = function() {
+        originalUpdateSelection();
+        if (window.treeView) {
+          window.treeView.update();
+        }
+      };
+    }
+  }, 100);
+});
+
+/**
+ * Extensions View Component
+ * Displays available editor extensions and plugins
+ */
+class ExtensionsView {
+  constructor(editor) {
+    this.editor = editor;
+    this.container = document.getElementById('extContent');
+    this.extensions = this.loadExtensions();
+  }
+
+  loadExtensions() {
+    return [
+      {
+        name: 'Grid Excel Selector',
+        description: 'Select cells using Excel-like notation (A1:B10)',
+        active: !!window.GridExcelSelector,
+        category: 'Selection'
+      },
+      {
+        name: 'Character Formatting',
+        description: 'Apply bold, italic, and underline to individual characters',
+        active: true,
+        category: 'Formatting'
+      },
+      {
+        name: 'Search & Highlight',
+        description: 'Search text and highlight matches in real-time',
+        active: true,
+        category: 'Search'
+      },
+      {
+        name: 'Grid View',
+        description: 'Toggle character grid overlay for alignment',
+        active: true,
+        category: 'Visualization'
+      },
+      {
+        name: 'Syntax Highlighting',
+        description: 'JSON syntax highlighting in state panels',
+        active: !!window.SyntaxHighlighter,
+        category: 'Visualization'
+      },
+      {
+        name: 'Tree View',
+        description: 'Interactive tree view of editor state',
+        active: !!window.TreeView,
+        category: 'Visualization'
+      },
+      {
+        name: 'Multi-Font Support',
+        description: 'Switch between monospace fonts dynamically',
+        active: true,
+        category: 'Typography'
+      },
+      {
+        name: 'Table Templates',
+        description: 'Insert pre-formatted markdown tables and ASCII art',
+        active: true,
+        category: 'Templates'
+      }
+    ];
+  }
+
+  render() {
+    // Don't render anything - keep the HTML content (REACT EXPORT button)
+    return;
+  }
+
+  groupByCategory() {
+    const grouped = {};
+    this.extensions.forEach(ext => {
+      if (!grouped[ext.category]) {
+        grouped[ext.category] = [];
+      }
+      grouped[ext.category].push(ext);
+    });
+    return grouped;
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+}
+
+// Initialize extensions view when DOM is ready
+window.addEventListener('DOMContentLoaded', () => {
+  const checkEditor = setInterval(() => {
+    if (window.editor) {
+      window.extView = new ExtensionsView(window.editor);
+      window.extView.render();
+      clearInterval(checkEditor);
+    }
+  }, 100);
+});
+
+/**
+ * Chart View Component
+ * ASCII Line Chart Grid Generator
+ */
+class ChartView {
+  constructor(editor) {
+    this.editor = editor;
+    this.container = document.getElementById('chartContent');
+    this.lastChartText = ''; // Store plain text version of chart
+  }
+
+  render() {
+    if (!this.container) return;
+
+    const defaultJSON = {
+      "yAxisLabel": "Value",
+      "xAxisLabel": "X-Axis",
+      "columns": [
+        {"label": "Jan", "value": 87},
+        {"label": "Feb", "value": 62},
+        {"label": "Mar", "value": 68},
+        {"label": "Apr", "value": 34},
+        {"label": "May", "value": 55},
+        {"label": "Jun", "value": 71},
+        {"label": "Jul", "value": 79},
+        {"label": "Aug", "value": 95},
+        {"label": "Sep", "value": 73},
+        {"label": "Oct", "value": 48}
+      ],
+      "yAxisStep": 10,
+      "colorRanges": [
+        { "min": 0, "max": 60, "color": "#ef4444" },
+        { "min": 60, "max": 80, "color": "#eab308" },
+        { "min": 80, "max": 100, "color": "#22c55e" }
+      ]
+    };
+
+    let html = `
+      <div class="chart-output" id="chartOutput"></div>
+      <div class="chart-input-section">
+        <h3 class="chart-input-title">JSON Input:</h3>
+        <textarea class="chart-json-input" id="chartJsonInput">${JSON.stringify(defaultJSON, null, 2)}</textarea>
+        <div class="chart-button-group">
+          <button class="chart-button" onclick="window.chartView.renderChart()">Render Chart</button>
+          <button class="chart-button" onclick="window.chartView.insertChart()">Insert</button>
+          <button class="chart-button" onclick="window.chartView.copyChart(event)">Copy</button>
+        </div>
+      </div>
+    `;
+
+    this.container.innerHTML = html;
+
+    // Initial render
+    this.renderChart();
+  }
+
+  renderChart() {
+    const jsonInput = document.getElementById('chartJsonInput').value;
+    let data;
+
+    try {
+      data = JSON.parse(jsonInput);
+    } catch (e) {
+      document.getElementById('chartOutput').innerHTML = `<div class="chart-error">Invalid JSON: ${e.message}</div>`;
+      return;
+    }
+
+    const columns = data.columns;
+    const yAxisStep = data.yAxisStep || 10;
+    const yAxisLabel = data.yAxisLabel || "Value";
+    const xAxisLabel = data.xAxisLabel || "X-Axis";
+    const colorRanges = data.colorRanges || [];
+
+    // Function to get color for a value
+    const getColor = (value) => {
+      for (let range of colorRanges) {
+        if (value >= range.min && value < range.max) {
+          return range.color;
+        }
+        // Handle edge case where value equals max of last range
+        if (value === 100 && range.max === 100 && value >= range.min) {
+          return range.color;
+        }
+      }
+      return null; // No color (default)
+    };
+
+    // Build ASCII chart
+    let ascii = '';
+    const colWidth = 5;  // Each column is 5 cells wide
+    const barWidth = 3;   // Bars are 3 blocks wide
+    const yAxisWidth = 8;
+
+    // Helper to pad string
+    const pad = (str, width) => {
+      str = String(str);
+      return str.length >= width ? str : str + ' '.repeat(width - str.length);
+    };
+
+    const center = (str, width) => {
+      str = String(str);
+      if (str.length >= width) return str;
+      const leftPad = Math.floor((width - str.length) / 2);
+      const rightPad = width - str.length - leftPad;
+      return ' '.repeat(leftPad) + str + ' '.repeat(rightPad);
+    };
+
+    // Build plain text version (for insert/copy)
+    let plainText = '';
+
+    // Header row - Value
+    const headerRow = '| ' + pad(yAxisLabel, yAxisWidth - 2) + ' |';
+    ascii += headerRow;
+    plainText += headerRow;
+    columns.forEach(col => {
+      const headerCell = ' ' + center(`${col.value}%`, colWidth - 2) + ' |';
+      ascii += headerCell;
+      plainText += headerCell;
+    });
+    ascii += '\n';
+    plainText += '\n';
+
+    // Separator
+    const separatorStart = '|' + '-'.repeat(yAxisWidth) + '|';
+    ascii += separatorStart;
+    plainText += separatorStart;
+    columns.forEach(() => {
+      const separatorCell = '-'.repeat(colWidth) + '|';
+      ascii += separatorCell;
+      plainText += separatorCell;
+    });
+    ascii += '\n';
+    plainText += '\n';
+
+    // Grid rows (from 100% down to 0%)
+    for (let y = 100; y >= 0; y -= yAxisStep) {
+      const rowStart = '| ' + pad(`${y}%`, yAxisWidth - 2) + ' |';
+      ascii += rowStart;
+      plainText += rowStart;
+
+      columns.forEach(col => {
+        // Check if this column's value reaches this y level
+        const blocks = '███';
+        if (col.value >= y) {
+          // Show bar - 3 blocks centered in 5-cell width
+          const color = getColor(col.value);
+          if (color) {
+            ascii += ` <span style="color: ${color}">${blocks}</span> |`;
+          } else {
+            ascii += ` ${blocks} |`;
+          }
+          plainText += ` ${blocks} |`;
+        } else {
+          const empty = ' '.repeat(colWidth) + '|';
+          ascii += empty;
+          plainText += empty;
+        }
+      });
+      ascii += '\n';
+      plainText += '\n';
+    }
+
+    // Bottom separator before X-axis
+    const bottomSep = '|' + '-'.repeat(yAxisWidth) + '|';
+    ascii += bottomSep;
+    plainText += bottomSep;
+    columns.forEach(() => {
+      const sep = '-'.repeat(colWidth) + '|';
+      ascii += sep;
+      plainText += sep;
+    });
+    ascii += '\n';
+    plainText += '\n';
+
+    // X-axis labels - no borders between columns
+    const xAxisStart = '| ' + pad(xAxisLabel, yAxisWidth - 2) + ' |';
+    ascii += xAxisStart;
+    plainText += xAxisStart;
+    columns.forEach((col, idx) => {
+      const label = ' ' + center(col.label, colWidth - 1);
+      ascii += label;
+      plainText += label;
+      if (idx < columns.length - 1) {
+        ascii += ' ';
+        plainText += ' ';
+      } else {
+        ascii += '|';
+        plainText += '|';
+      }
+    });
+    ascii += '\n';
+    plainText += '\n';
+
+    // Store plain text version
+    this.lastChartText = plainText;
+
+    document.getElementById('chartOutput').innerHTML = `<pre class="chart-ascii">${ascii}</pre>`;
+  }
+
+  insertChart() {
+    if (!this.lastChartText) {
+      alert('Please render a chart first');
+      return;
+    }
+
+    // Get current cursor position
+    const cursorPos = this.editor.input.selectionStart;
+    const currentText = this.editor.input.value;
+
+    // Insert chart at cursor position
+    const newText = currentText.substring(0, cursorPos) + this.lastChartText + currentText.substring(cursorPos);
+    this.editor.input.value = newText;
+
+    // Update cursor position to end of inserted chart
+    this.editor.input.selectionStart = cursorPos + this.lastChartText.length;
+    this.editor.input.selectionEnd = cursorPos + this.lastChartText.length;
+
+    // Trigger editor update
+    this.editor.handleInput();
+
+    // Focus editor
+    this.editor.input.focus();
+  }
+
+  copyChart(event) {
+    if (!this.lastChartText) {
+      return;
+    }
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(this.lastChartText).then(() => {
+      // Find the copy button and change text to checkmark
+      const copyButton = event.target;
+      const originalText = copyButton.textContent;
+      copyButton.textContent = '✓';
+
+      // Revert back after 2 seconds
+      setTimeout(() => {
+        copyButton.textContent = originalText;
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
+  }
+}
+
+// Initialize chart view when DOM is ready
+window.addEventListener('DOMContentLoaded', () => {
+  const checkEditor = setInterval(() => {
+    if (window.editor) {
+      window.chartView = new ChartView(window.editor);
+      window.chartView.render();
+      clearInterval(checkEditor);
+    }
+  }, 100);
+});
+
+/**
+ * Stats View Component
+ * Displays editor statistics as visual charts
+ */
+class StatsView {
+  constructor(editor) {
+    this.editor = editor;
+    this.container = document.getElementById('statsContent');
+  }
+
+  update() {
+    if (!this.container) return;
+
+    const stats = this.calculateStats();
+    this.render(stats);
+  }
+
+  calculateStats() {
+    const text = this.editor.state.text;
+    const lines = this.editor.state.lines;
+    const words = this.editor.state.words;
+
+    // Character type breakdown
+    const charTypes = {
+      letters: (text.match(/[a-zA-Z]/g) || []).length,
+      digits: (text.match(/[0-9]/g) || []).length,
+      spaces: (text.match(/\s/g) || []).length,
+      punctuation: (text.match(/[.,!?;:'"]/g) || []).length,
+      special: 0
+    };
+    charTypes.special = text.length - (charTypes.letters + charTypes.digits + charTypes.spaces + charTypes.punctuation);
+
+    // Line length distribution
+    const lineLengths = lines.map(line => line.length);
+    const avgLineLength = lineLengths.length > 0
+      ? Math.round(lineLengths.reduce((a, b) => a + b, 0) / lineLengths.length)
+      : 0;
+    const maxLineLength = lineLengths.length > 0 ? Math.max(...lineLengths) : 0;
+
+    // Word length distribution
+    const wordLengths = words.map(word => word.text.length);
+    const avgWordLength = wordLengths.length > 0
+      ? (wordLengths.reduce((a, b) => a + b, 0) / wordLengths.length).toFixed(1)
+      : 0;
+
+    // Formatting usage
+    let formattedChars = 0;
+    this.editor.characterFormats.forEach(format => {
+      if (format.bold || format.italic || format.underline) {
+        formattedChars++;
+      }
+    });
+
+    return {
+      charTypes,
+      totalChars: text.length,
+      totalLines: lines.length,
+      totalWords: words.length,
+      avgLineLength,
+      maxLineLength,
+      avgWordLength,
+      formattedChars,
+      selectionLength: this.editor.selection.length
+    };
+  }
+
+  render(stats) {
+    const maxTotal = stats.totalChars || 1; // Avoid division by zero
+
+    let html = '<div class="stats-container">';
+
+    // Character Types Chart
+    html += `
+      <div class="stats-section">
+        <div class="stats-title">Character Distribution</div>
+        <div class="stats-bar-container">
+    `;
+
+    const charTypeColors = {
+      letters: '#58a6ff',
+      digits: '#39d353',
+      spaces: '#ffa657',
+      punctuation: '#ff7b72',
+      special: '#a371f7'
+    };
+
+    Object.entries(stats.charTypes).forEach(([type, count]) => {
+      const percentage = stats.totalChars > 0 ? ((count / stats.totalChars) * 100).toFixed(1) : 0;
+      html += `
+        <div class="stats-bar">
+          <div class="stats-bar-label">${this.capitalize(type)}</div>
+          <div class="stats-bar-track">
+            <div class="stats-bar-fill" style="width: ${percentage}%; background: ${charTypeColors[type]};">
+              ${percentage > 10 ? percentage + '%' : ''}
+            </div>
+          </div>
+          <div class="stats-bar-value">${count}</div>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+      </div>
+    `;
+
+    // Statistics Grid
+    html += `
+      <div class="stats-section">
+        <div class="stats-title">Statistics</div>
+        <div class="stats-stats">
+          <div class="stats-stat">
+            <div class="stats-stat-value">${stats.totalChars}</div>
+            <div class="stats-stat-label">Characters</div>
+          </div>
+          <div class="stats-stat">
+            <div class="stats-stat-value">${stats.totalWords}</div>
+            <div class="stats-stat-label">Words</div>
+          </div>
+          <div class="stats-stat">
+            <div class="stats-stat-value">${stats.totalLines}</div>
+            <div class="stats-stat-label">Lines</div>
+          </div>
+          <div class="stats-stat">
+            <div class="stats-stat-value">${stats.avgLineLength}</div>
+            <div class="stats-stat-label">Avg Line Length</div>
+          </div>
+          <div class="stats-stat">
+            <div class="stats-stat-value">${stats.avgWordLength}</div>
+            <div class="stats-stat-label">Avg Word Length</div>
+          </div>
+          <div class="stats-stat">
+            <div class="stats-stat-value">${stats.formattedChars}</div>
+            <div class="stats-stat-label">Formatted Chars</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Content Metrics Bar Chart
+    html += `
+      <div class="stats-section">
+        <div class="stats-title">Content Metrics</div>
+        <div class="stats-bar-container">
+    `;
+
+    const metrics = [
+      { label: 'Selection', value: stats.selectionLength, max: stats.totalChars },
+      { label: 'Formatted', value: stats.formattedChars, max: stats.totalChars },
+      { label: 'Max Line', value: stats.maxLineLength, max: stats.maxLineLength },
+      { label: 'Avg Line', value: stats.avgLineLength, max: stats.maxLineLength }
+    ];
+
+    metrics.forEach(metric => {
+      const percentage = metric.max > 0 ? ((metric.value / metric.max) * 100).toFixed(1) : 0;
+      html += `
+        <div class="stats-bar">
+          <div class="stats-bar-label">${metric.label}</div>
+          <div class="stats-bar-track">
+            <div class="stats-bar-fill" style="width: ${percentage}%;">
+              ${percentage > 10 ? percentage + '%' : ''}
+            </div>
+          </div>
+          <div class="stats-bar-value">${metric.value}</div>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+      </div>
+    `;
+
+    html += '</div>';
+    this.container.innerHTML = html;
+  }
+
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+}
+
+// Initialize stats view when DOM is ready
+window.addEventListener('DOMContentLoaded', () => {
+  const checkEditor = setInterval(() => {
+    if (window.editor) {
+      window.statsView = new StatsView(window.editor);
+      window.statsView.update();
+      clearInterval(checkEditor);
+
+      // Update stats when text changes
+      const originalHandleInput = window.editor.handleInput.bind(window.editor);
+      window.editor.handleInput = function() {
+        originalHandleInput();
+        if (window.statsView) {
+          window.statsView.update();
+        }
+      };
+
+      // Update stats when selection changes
+      const originalUpdateSelection = window.editor.updateSelection.bind(window.editor);
+      window.editor.updateSelection = function() {
+        originalUpdateSelection();
+        if (window.statsView) {
+          window.statsView.update();
+        }
+      };
+    }
+  }, 100);
+});
+
+/**
+ * API View Component
+ * Displays API documentation and endpoints
+ */
+class APIView {
+  constructor(editor) {
+    this.editor = editor;
+    this.container = document.getElementById('apiContent');
+    this.apiMethods = this.loadAPIMethods();
+  }
+
+  loadAPIMethods() {
+    return [
+      {
+        name: 'select',
+        signature: 'select(startCell, endCell)',
+        description: 'Programmatically select a range of cells using Excel-style notation',
+        params: [
+          { name: 'startCell', type: 'string', description: 'Starting cell in Excel notation (e.g., "A1", "B5", "AA10")' },
+          { name: 'endCell', type: 'string', description: 'Ending cell in Excel notation (e.g., "B10", "C20", "AB15")' }
+        ],
+        returns: { type: 'Object', description: 'Selection result with metadata' },
+        throws: 'Error if cell references are invalid',
+        examples: [
+          {
+            code: 'TrustEditor.select("A1", "Z1");',
+            description: 'Select a single row from A1 to Z1'
+          },
+          {
+            code: 'TrustEditor.select("A1", "C10");',
+            description: 'Select a rectangular region from A1 to C10'
+          },
+          {
+            code: 'TrustEditor.select("B5", "B5");',
+            description: 'Select a single cell'
+          }
+        ]
+      },
+      {
+        name: 'clearSelection',
+        signature: 'clearSelection()',
+        description: 'Clear the current cell selection',
+        params: [],
+        returns: { type: 'Object', description: 'Result object' },
+        throws: null,
+        examples: [
+          {
+            code: 'TrustEditor.clearSelection();',
+            description: 'Clear the current selection'
+          }
+        ]
+      },
+      {
+        name: 'getSelectionInfo',
+        signature: 'getSelectionInfo()',
+        description: 'Get information about the current selection',
+        params: [],
+        returns: { type: 'Object', description: 'Selection information including bounds, cell count, rows, and cols' },
+        throws: null,
+        examples: [
+          {
+            code: `const info = TrustEditor.getSelectionInfo();
+console.log(info.cellCount); // Number of cells selected`,
+            description: 'Get info about the current selection'
+          }
+        ]
+      },
+      {
+        name: 'search',
+        signature: 'search(searchTerm, options)',
+        description: 'Search for text in the editor with advanced options and highlight all matches',
+        params: [
+          { name: 'searchTerm', type: 'string', description: 'The text to search for' },
+          { name: 'options', type: 'Object', description: 'Search options (optional)' },
+          { name: 'options.caseSensitive', type: 'boolean', description: 'Whether to match case (default: false)' },
+          { name: 'options.wholeWord', type: 'boolean', description: 'Whether to match whole words only (default: false)' }
+        ],
+        returns: { type: 'Object', description: 'Search results with match count and positions' },
+        throws: 'Error if searchTerm is not a string',
+        examples: [
+          {
+            code: 'const results = TrustEditor.search("hello");\nconsole.log(results.matchCount);',
+            description: 'Basic search (case-insensitive, substring matching)'
+          },
+          {
+            code: 'TrustEditor.search("TrustEditor", { caseSensitive: true });',
+            description: 'Case-sensitive search'
+          },
+          {
+            code: 'TrustEditor.search("edit", { wholeWord: true });',
+            description: 'Whole word search'
+          }
+        ]
+      },
+      {
+        name: 'navigateToNextMatch',
+        signature: 'navigateToNextMatch()',
+        description: 'Navigate to the next search match and display "X of Y" in the UI',
+        params: [],
+        returns: { type: 'Object', description: 'Result with current match index and total matches' },
+        throws: null,
+        examples: [
+          {
+            code: `TrustEditor.search("hello");
+TrustEditor.navigateToNextMatch(); // Jump to first match
+TrustEditor.navigateToNextMatch(); // Jump to second match`,
+            description: 'Navigate through search matches'
+          }
+        ]
+      },
+      {
+        name: 'navigateToPreviousMatch',
+        signature: 'navigateToPreviousMatch()',
+        description: 'Navigate to the previous search match',
+        params: [],
+        returns: { type: 'Object', description: 'Result with current match index and total matches' },
+        throws: null,
+        examples: [
+          {
+            code: `TrustEditor.search("hello");
+TrustEditor.navigateToPreviousMatch(); // Jump to last match`,
+            description: 'Navigate backwards through search matches'
+          }
+        ]
+      },
+      {
+        name: 'clearSearch',
+        signature: 'clearSearch()',
+        description: 'Clear the current search and remove all highlights',
+        params: [],
+        returns: { type: 'Object', description: 'Result object' },
+        throws: null,
+        examples: [
+          {
+            code: 'TrustEditor.clearSearch();',
+            description: 'Clear the current search'
+          }
+        ]
+      },
+      {
+        name: 'getSearchInfo',
+        signature: 'getSearchInfo()',
+        description: 'Get information about the current search results',
+        params: [],
+        returns: { type: 'Object', description: 'Search information including match count and positions' },
+        throws: null,
+        examples: [
+          {
+            code: `const info = TrustEditor.getSearchInfo();
+console.log(info.matchCount);
+console.log(info.matches);`,
+            description: 'Get info about the current search'
+          }
+        ]
+      },
+      {
+        name: 'highlightByGridCells',
+        signature: 'highlightByGridCells({ start, end, color })',
+        description: 'Highlight grid cells by range with custom background color (no padding or borders)',
+        params: [
+          { name: 'start', type: 'string', description: 'Starting cell in Excel notation (e.g., "A1", "B5")' },
+          { name: 'end', type: 'string', description: 'Ending cell in Excel notation (e.g., "B10", "C20")' },
+          { name: 'color', type: 'string', description: 'CSS color value (e.g., "rgba(255, 0, 0, 0.3)", "#ff0000", "red")' }
+        ],
+        returns: { type: 'Object', description: 'Result object with success status and metadata' },
+        throws: 'Error if cell references are invalid or color is not provided',
+        examples: [
+          {
+            code: `TrustEditor.highlightByGridCells({
+  start: "A1",
+  end: "C5",
+  color: "rgba(255, 0, 0, 0.3)"
+});`,
+            description: 'Highlight cells A1 to C5 with red background'
+          },
+          {
+            code: `TrustEditor.highlightByGridCells({
+  start: "A10",
+  end: "Z10",
+  color: "#0000ff80"
+});`,
+            description: 'Highlight a single row with blue background'
+          }
+        ]
+      },
+      {
+        name: 'moveCursorToPositionByGrid',
+        signature: 'moveCursorToPositionByGrid({ col, row })',
+        description: 'Move cursor to a specific grid position using Excel-style notation',
+        params: [
+          { name: 'col', type: 'string', description: 'Column in Excel notation (e.g., "A", "B", "AA")' },
+          { name: 'row', type: 'number', description: 'Row number (1-based, e.g., 1, 10, 100)' }
+        ],
+        returns: { type: 'Object', description: 'Result object with position information' },
+        throws: 'Error if position is invalid or out of bounds',
+        examples: [
+          {
+            code: `TrustEditor.moveCursorToPositionByGrid({
+  col: "A",
+  row: 10
+});`,
+            description: 'Move cursor to column A, row 10'
+          },
+          {
+            code: `TrustEditor.moveCursorToPositionByGrid({
+  col: "AA",
+  row: 1
+});`,
+            description: 'Move cursor to column AA, row 1'
+          }
+        ]
+      }
+    ];
+  }
+
+  render() {
+    if (!this.container) return;
+
+    let html = '<div class="api-docs-container">';
+
+    // API Header
+    html += `
+      <div class="api-header">
+        <h2 class="api-title">TrustEditor API</h2>
+        <div class="api-description">
+          Access the TrustEditor API via the global <code>window.TrustEditor</code> object.
+        </div>
+        <div class="api-filter-container">
+          <input
+            type="text"
+            class="api-filter-input"
+            id="apiFilterInput"
+            placeholder="Filter methods..."
+          />
+        </div>
+      </div>
+    `;
+
+    // API Methods
+    this.apiMethods.forEach((method, index) => {
+      html += this.renderMethod(method, index);
+    });
+
+    html += '</div>';
+    this.container.innerHTML = html;
+
+    // Add event listeners
+    this.attachEventListeners();
+  }
+
+  renderMethod(method, index) {
+    let html = `
+      <div class="api-method" data-method-name="${this.escapeHtml(method.name.toLowerCase())}">
+        <div class="api-method-header" data-method-index="${index}">
+          <code class="api-method-signature">${this.escapeHtml(method.signature)}</code>
+          <span class="api-method-toggle">▼</span>
+        </div>
+        <div class="api-method-content">
+          <div class="api-method-description">${this.escapeHtml(method.description)}</div>
+    `;
+
+    // Parameters
+    if (method.params.length > 0) {
+      html += '<div class="api-section"><h4>Parameters</h4><div class="api-params">';
+      method.params.forEach(param => {
+        html += `
+          <div class="api-param">
+            <code class="api-param-name">${this.escapeHtml(param.name)}</code>
+            <span class="api-param-type">${this.escapeHtml(param.type)}</span>
+            <span class="api-param-description">${this.escapeHtml(param.description)}</span>
+          </div>
+        `;
+      });
+      html += '</div></div>';
+    }
+
+    // Returns
+    html += `
+      <div class="api-section">
+        <h4>Returns</h4>
+        <div class="api-returns">
+          <span class="api-returns-type">${this.escapeHtml(method.returns.type)}</span>
+          <span class="api-returns-description">${this.escapeHtml(method.returns.description)}</span>
+        </div>
+      </div>
+    `;
+
+    // Throws
+    if (method.throws) {
+      html += `
+        <div class="api-section">
+          <h4>Throws</h4>
+          <div class="api-throws">${this.escapeHtml(method.throws)}</div>
+        </div>
+      `;
+    }
+
+    // Examples
+    if (method.examples.length > 0) {
+      html += '<div class="api-section"><h4>Examples</h4>';
+      method.examples.forEach(example => {
+        html += `
+          <div class="api-example">
+            <div class="api-example-description">${this.escapeHtml(example.description)}</div>
+            <pre class="api-example-code"><code>${this.escapeHtml(example.code)}</code></pre>
+          </div>
+        `;
+      });
+      html += '</div>';
+    }
+
+    html += '</div></div>';
+    return html;
+  }
+
+  attachEventListeners() {
+    // Toggle method cards
+    const headers = this.container.querySelectorAll('.api-method-header');
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const methodCard = header.parentElement;
+        const content = methodCard.querySelector('.api-method-content');
+        const toggle = header.querySelector('.api-method-toggle');
+
+        methodCard.classList.toggle('collapsed');
+
+        if (methodCard.classList.contains('collapsed')) {
+          toggle.textContent = '▶';
+        } else {
+          toggle.textContent = '▼';
+        }
+      });
+    });
+
+    // Filter methods
+    const filterInput = document.getElementById('apiFilterInput');
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        const filterTerm = e.target.value.toLowerCase();
+        const methods = this.container.querySelectorAll('.api-method');
+
+        methods.forEach(method => {
+          const methodName = method.dataset.methodName;
+          const signature = method.querySelector('.api-method-signature').textContent.toLowerCase();
+          const description = method.querySelector('.api-method-description').textContent.toLowerCase();
+
+          const matches = methodName.includes(filterTerm) ||
+                         signature.includes(filterTerm) ||
+                         description.includes(filterTerm);
+
+          if (matches) {
+            method.style.display = 'block';
+          } else {
+            method.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    // Initialize all cards as collapsed
+    const methods = this.container.querySelectorAll('.api-method');
+    methods.forEach(method => {
+      method.classList.add('collapsed');
+      const toggle = method.querySelector('.api-method-toggle');
+      if (toggle) {
+        toggle.textContent = '▶';
+      }
+    });
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+}
+
+// Initialize API view when DOM is ready
+window.addEventListener('DOMContentLoaded', () => {
+  const checkEditor = setInterval(() => {
+    if (window.editor) {
+      window.apiView = new APIView(window.editor);
+      window.apiView.render();
+      clearInterval(checkEditor);
+    }
+  }, 100);
+});
+
+  </script>
+</body>
+</html>
